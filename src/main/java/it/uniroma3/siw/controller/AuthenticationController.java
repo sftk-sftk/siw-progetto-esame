@@ -37,6 +37,9 @@ public class AuthenticationController {
 	@Autowired
     private UserService userService;
 
+	@Autowired
+    private ProdottoService prodottoService;
+
 	@GetMapping(value = "/login")
 	public String showLoginForm(Model model) {
 		return "forms/login";
@@ -45,6 +48,7 @@ public class AuthenticationController {
 	@GetMapping(value = "/")
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		/*
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "index.html";
 		} else {
@@ -54,7 +58,10 @@ public class AuthenticationController {
 			if (credentials.getRole().equals(Credentials.ADMIN)) {
 				return "admin/indexAdmin.html";
 			}
-		}
+		}*/
+		//crea wishlist: prodotto in più whilist è il più amato
+		List<Prodotto> prodotti = prodottoService.find5Prodotti();
+		model.addAttribute("prodotti", prodotti);
 		return "index.html";
 	}
 
