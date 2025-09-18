@@ -1,0 +1,27 @@
+@use 'variables';
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 variables.$spacing;
+}
+
+.site-header,
+.site-footer {
+  background-color: variables.$primary-color;
+  color: white;
+  padding: variables.$spacing 0;
+
+  .site-title {
+    margin: 0;
+  }
+
+  .subtitle {
+    opacity: 0.85;
+  }
+}
+
+.product-info {
+  padding: 2 * variables.$spacing 0;
+  text-align: center;
+}
