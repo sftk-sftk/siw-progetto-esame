@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Uma Coffe')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<main>
+		<section class="text-center">
+			<h1 class="title">Benvenuto ad Uma Coffe</h1>
+			<p>Scopri il nostro catalogo di prodotti di alta qualita' per il tuo caffe</p>
+			<div class="button">
+				<button class="hair-button "><a href="/catalogo">Visualizza Catalogo</a></button>
+			</div>
+		</section>
+		<hr class="section-divider">
+		<section class="products">
+			<p>Prodotti piu' amati</p>
+			<a>Scopri</a>
+			<div class="row g-3">
+				<div class="col-12 col-sm-6 col-md-4" th:each="prodotto : ${prodotti}">
+					<div class="prodotto">
+						<a th:href="@{/prodotto/{id}(id=${prodotto.id})}"
+							class="d-flex flex-column flex-md-row align-items-center p-3 text-decoration-none h-100">
+
+							<img src="/images/prodotti/prodotto.svg" alt="Prodotto">
+
+							<p th:text="${prodotto.nome}"
+								class="mt-2 mt-md-0 ms-md-3 text-center text-md-start fw-semibold">
+								Prodotto i
+							</p>
+
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<section class="products">
+			<p>Prodotti a piccoli prezzi</p>
+			<a>Scopri</a>
+
+		</section>
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+</body>
+
+</html>

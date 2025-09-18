@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.AuthService;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.ProdottoService;
 import it.uniroma3.siw.service.UserService;
 
 @Controller

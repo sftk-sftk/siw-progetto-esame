@@ -1,0 +1,32 @@
+h1 {
+	font-size: 5rem;
+	font-weight: $bold-text;
+	color: $title-color;
+	font-family: $font-title;
+}
+
+.logo {
+	font-size: 3rem;
+	font-family: $font-logo;
+}
+
+.title {
+	font-size: 3rem;
+	font-family: $font-title;
+	margin: 0rem 0rem 2rem 0rem;
+}
+
+p {
+	color: $font-color;
+	font-size: 1.5rem;
+}
+
+span {
+	color: $font-color;
+	font-size: 1.5rem;
+}
+
+a {
+	color: inherit; // Mantiene il colore del testo del genitore
+	text-decoration: none;
+}

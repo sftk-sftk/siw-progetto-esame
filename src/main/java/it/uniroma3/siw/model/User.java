@@ -41,7 +41,7 @@ public class User {
 	@Past(message = "birth date must be in the past")
 	private LocalDate birthDate;
 
-	@OneToMany(mappedBy = "autore", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Commento> commenti = new ArrayList<>();
 
 	// GETTER E SETTER

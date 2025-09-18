@@ -1,0 +1,195 @@
+h1 {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #fc696a;
+  font-family: "Fredericka the Great", serif;
+}
+
+.logo {
+  font-size: 3rem;
+  font-family: "Covered By Your Grace", cursive;
+}
+
+.title {
+  font-size: 3rem;
+  font-family: "Fredericka the Great", serif;
+  margin: 0rem 0rem 2rem 0rem;
+}
+
+p {
+  color: #3e3e3e;
+  font-size: 1.5rem;
+}
+
+span {
+  color: #3e3e3e;
+  font-size: 1.5rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/*
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.primary {
+    background-color: variables.$primary-color;
+    color: white;
+
+    &:hover {
+      background-color: variables.$primary-dark;
+    }
+  }*/
+.eyes-button {
+  border-radius: 0.3rem;
+  cursor: pointer;
+  box-shadow: 0 0.2rem 0.2rem #3a3340;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  min-width: 6rem;
+  min-height: 2rem;
+  max-height: 2rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.5rem;
+  background-color: #feffc9;
+  color: #3e3e3e;
+  border: 0.01rem solid #b09500;
+}
+.eyes-button:hover {
+  background-color: #dac448;
+}
+
+.coffe-button {
+  border-radius: 0.3rem;
+  cursor: pointer;
+  box-shadow: 0 0.2rem 0.2rem #3a3340;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  min-width: 6rem;
+  min-height: 2rem;
+  max-height: 2rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.5rem;
+  background-color: #fcfaf7;
+  color: #3e3e3e;
+  border: 0.01rem solid #beb39e;
+}
+.coffe-button:hover {
+  background-color: #cabb98;
+}
+
+.hair-button {
+  border-radius: 0.3rem;
+  cursor: pointer;
+  box-shadow: 0 0.2rem 0.2rem #3a3340;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  min-width: 6rem;
+  min-height: 2rem;
+  max-height: 2rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.5rem;
+  background-color: #5f5766;
+  color: #fcfaf7;
+  border: 0.01rem solid #3a3340;
+}
+.hair-button:hover {
+  background-color: #fcfaf7;
+  color: #3e3e3e;
+}
+
+.jewels-button {
+  border-radius: 0.3rem;
+  cursor: pointer;
+  box-shadow: 0 0.2rem 0.2rem #3a3340;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  min-width: 6rem;
+  min-height: 2rem;
+  max-height: 2rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.5rem;
+  background-color: #42c2ac;
+  color: #3e3e3e;
+  border: 0.01rem solid #00a485;
+}
+.jewels-button:hover {
+  background-color: #c3fef7;
+}
+
+body {
+  font-family: "Gaegu", sans-serif;
+}
+
+.bg-coffe {
+  background-color: #ede2cf;
+}
+
+nav {
+  margin: 0rem 0rem 3rem 0rem;
+  padding: 0rem 0.7rem 0rem 1rem;
+  background-color: #5f5766;
+  border: 0.01rem solid #3a3340;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0.2rem 0.2rem #beb39e;
+}
+nav .nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+nav .nav-left img {
+  height: 40%;
+  width: auto;
+  height: 4rem;
+}
+nav .nav-left .site-title {
+  font-weight: 900;
+  font-size: 1.7rem;
+  color: #42c2ac;
+  text-decoration: none;
+}
+nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-divider {
+  border: none;
+  border-top: 0.5rem dashed #cabb98;
+  margin: 3rem auto;
+  width: 80%;
+}
+
+footer {
+  color: #fcfaf7;
+  background-color: #5f5766;
+  border: 0.01rem solid #3a3340;
+}
+
+.text-center .button {
+  margin: 5rem 0rem;
+}
+.text-center .products {
+  margin: 0.5rem;
+  background-color: #fcfaf7;
+  box-shadow: 0 0.2rem 0.2rem #cabb98;
+}
+
+/*# sourceMappingURL=main.css.map */

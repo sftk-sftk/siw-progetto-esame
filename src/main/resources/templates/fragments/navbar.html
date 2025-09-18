@@ -1,0 +1,78 @@
+<div th:fragment="navbar">
+	<!-- Navbar Section -->
+	<nav class="d-none d-md-flex">
+		<div class="nav-left">
+			<!--<img src="/images/icons/logo-airdesk.jpeg 2.svg" alt="AirDesk Logo">-->
+			<div class="site-title">
+				<div class="logo"><a href="/">Uma Coffe</a></div>
+				
+			</div>
+		</div>
+
+		<div class="nav-right">
+			<a class="eyes-button" href="/catalogo">Catalogo</a>
+			
+			<if th:if="${credentials == null}">
+				<div class="eyes-button"><a href="/login">Login</a></div>
+				
+			</if>
+
+			<!-- ALTERNATIVE WAY TO CHECK FOR AUTHENTICATED USER, boolean expression to ensure correct behavior -->
+			<if th:if="${credentials != null}">
+				<if th:if="${credentials != null}">
+					<div class="eyes-button">
+					<a th:href="${credentials.role == 'USER' ? '/user/dashboard' : 
+									            (credentials.role == 'ADMIN' ? '/admin/dashboard' : '')}">
+						Profilo</a></div>
+				</if>
+			</if>
+			<if th:if="${credentials != null}">
+				<a class="coffe-button" href="/logout">Logout</a>
+			</if>
+		</div>
+	</nav>
+
+	<!-- Navbar for Mobile -->
+	<nav class="navbar-mobile d-flex d-md-none align-items-center position-relative px-3 py-2">
+		<!-- Pulsante a sinistra -->
+		<button class="btn position-absolute start-0 ms-3" alt="Apri menu">
+			<img src="/images/icons/menu.svg">
+		</button>
+		<div class="mx-auto">
+			<a href="/">
+				<img src="/images/icons/logo-airdesk.jpeg 2.svg" alt="AirDesk Logo" class="logo-mobile">
+			</a>
+		</div>
+	</nav>
+
+	<!-- Drawer Menu (only for mobile) -->
+	<div id="mobile-menu" class="mobile-drawer d-md-none">
+		<ul>
+			<li>
+				<h2>AIRDESK</h2>
+			</li>
+			<li><a href="/">Home</a></li>
+			<li>
+				<if th:if="${credentials == null}">
+					<a href="/login">Login</a>
+				</if>
+				<!-- ALTERNATIVE WAY TO CHECK FOR AUTHENTICATED USER, boolean expression to ensure correct behavior -->
+				<if th:if="${credentials != null}">
+					<a
+						th:href="${credentials.user != null ? '/userPage' : 
+			    (credentials.host != null ? '/host/dashboard' : 
+			    (credentials.intermediateHost != null ? '/intermediateHost/dashboard' : (credentials.employee != null ? '/employee/employeePage' : '')))}">
+						Il Mio Profilo </a>
+				</if>
+			</li>
+			<li><a href="/chooseService">Licenze</a></li>
+			<li>
+				<!-- ALTERNATIVE WAY TO CHECK FOR AUTHENTICATED USER, boolean expression to ensure correct behavior -->
+				<if th:if="${credentials != null}">
+					<a href="/logout">Logout</a>
+				</if>
+			</li>
+		</ul>
+	</div>
+	<div id="menu-overlay" class="menu-overlay d-md-none"></div>
+</div>

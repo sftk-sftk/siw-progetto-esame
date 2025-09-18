@@ -1,0 +1,64 @@
+body {
+	font-family: $font-primary;
+}
+
+.bg-coffe {
+	background-color: $coffe-color;
+}
+
+nav {
+	margin: 0rem 0rem 3rem 0rem;
+	padding: 0rem 0.7rem 0rem 1rem; // top | right | bottom | left
+	background-color: $hair-color;
+	border: 0.01rem solid $dark-hair-color;
+	height: 4rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	box-shadow: 0 0.2rem 0.2rem $shadow-color;
+
+	.site-title {
+		//margin:  0rem 0rem 0rem 1rem;
+	}
+
+	// left: logo + text
+	.nav-left {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem; // space between text and image
+
+		img {
+			height: 40%;
+			width: auto;
+			height: 4rem;
+		}
+
+		.site-title {
+			font-weight: $bold-text;
+			font-size: 1.7rem;
+			color: $jewels-color;
+			text-decoration: none;
+		}
+	}
+
+	// right: buttons
+	.nav-right {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem; // space between buttons
+
+	}
+}
+
+.section-divider {
+  border: none;
+  border-top: 0.5rem dashed $top-coffe-color; // spessore, stile tratteggiato, colore
+  margin: 3rem auto;            // spazio sopra e sotto
+  width: 80%;                   // lunghezza della linea
+}
+
+footer {
+	color: $white-color;
+	background-color: $hair-color;
+	border: 0.01rem solid $dark-hair-color;
+}

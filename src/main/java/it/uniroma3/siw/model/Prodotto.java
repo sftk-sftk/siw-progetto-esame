@@ -41,8 +41,6 @@ public class Prodotto {
 	@OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Commento> commenti = new ArrayList<>();
 
-	@NotBlank(message = "tipology field must not be blank")
-	@Column(nullable = false)
 	@ManyToOne
 	private Tipologia tipologia;
 
