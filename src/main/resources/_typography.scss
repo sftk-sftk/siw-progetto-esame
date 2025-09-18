@@ -1,0 +1,20 @@
+@use 'variables';
+
+body {
+  font-family: variables.$font-base;
+  font-size: variables.$font-size-base;
+  color: variables.$text-color;
+  background-color: variables.$bg-color;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  margin-bottom: variables.$spacing;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: variables.$spacing;
+}
