@@ -8,4 +8,7 @@ import it.uniroma3.siw.model.Prodotto;
 @Repository
 public interface ProdottoRepository extends CrudRepository<Prodotto, Long> {
 
+  @Query(value = "SELECT * FROM prodotto ORDER BY RANDOM() LIMIT 5", nativeQuery = true)
+List<Prodotto> find5Prodotti();
+  
 }
