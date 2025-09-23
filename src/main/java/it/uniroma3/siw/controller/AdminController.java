@@ -1,9 +1,11 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,14 +25,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Commento;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.model.Tipologia;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.service.CommentoService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ProdottoService;
 import it.uniroma3.siw.service.TipologiaService;
 import it.uniroma3.siw.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -50,6 +55,9 @@ public class AdminController {
 
 	@Autowired
 	private TipologiaService tipologiaService;
+	
+	@Autowired
+	private CommentoService commentoService;
 
 	@GetMapping("/indexAdmin")
 	public String getAdminIndex(Model model) {
@@ -211,4 +219,55 @@ public class AdminController {
 
 		return "redirect:/admin/indexAdmin";
 	}*/
+	
+	@GetMapping("/deleteCommento/{id}")
+	public String deleteCommento(@PathVariable Long id, HttpServletRequest request) {
+		/*
+		Credentials credentials = credentialsService.getAuthenticatedUserCredentials().orElse(null);
+		User user = credentials.getUser();
+
+		Prodotto prodotto = prodottoService.findById(id);
+
+		Commento commento = commentoService.findByProdottoAndUser(prodotto, user);
+*/
+		Commento commento = commentoService.findById(id);
+		
+		Prodotto prodotto = commento.getProdotto();
+		User user = commento.getUser();
+		
+		user.remove(commento);
+		userService.save(user);
+
+		prodotto.remove(commento);
+		prodottoService.save(prodotto);
+
+		// Elimina il commento
+		commentoService.delete(commento);
+		
+		// Recupera l'URL della pagina precedente
+		String referer = request.getHeader("Referer");
+
+		// Se presente, reindirizza alla pagina precedente
+		if (referer != null) {
+			return "redirect:" + referer;
+		}
+
+		return "redirect:/prodotto/" + id; // Reindirizza alla pagina del prodotto
+	}
+	
+	@GetMapping("/viewAllCommenti")
+	public String viewAllCommenti(@RequestParam(required = false) String nomeProdotto,
+			@RequestParam(required = false) String parola, @RequestParam(required = false) LocalDate data,
+			Model model) {
+
+		List<Commento> commenti = commentoService.filtraCommenti(nomeProdotto, parola, data);
+		
+		model.addAttribute("commenti", commenti);
+		
+	    model.addAttribute("nomeProdotto", nomeProdotto);
+	    model.addAttribute("parola", parola);
+	    model.addAttribute("data", data);
+
+		return "admin/viewAllCommenti";
+	}
 }

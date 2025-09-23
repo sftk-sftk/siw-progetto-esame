@@ -9,139 +9,68 @@
 
 
 	<main class="index prodottoPage">
-		<div class="row g-5 ms-3">
-			<div class="col-12 col-md-4">
-				<img class="immagine" th:src="@{'/images/prodotti/' + ${prodotto.immagine}}" alt="Prodotto">
-			</div>
 
-			<div class="col-12 col-md-4">
-
-				<p th:text="${prodotto.nome}" class="nomePrezzo text-justify fw-semibold">
-					Prodotto i
-				</p>
-
-				<p th:text="'Tipologia: ' + ${prodotto.tipologia.nome}">
-					Tipologia i
-				</p>
-
-				<p th:text="${prodotto.descrizione}" class="text-justify">
-					Descrizione i
-				</p>
-
-			</div>
-
-			<div class="col-12 col-md-4 d-flex align-items-center justify-content-center">
-				<p th:text="'€' + ${prodotto.prezzo}" class="nomePrezzoGrande text-center">
-					Prezzo i
-				</p>
-			</div>
-		</div>
-
-		<hr class="section-divider">
-
-		<section class="prodotti">
-			<p>Prodotti simili</p>
-			<div class="row g-3">
-				<div class="col-12 col-sm-6 col-md-4" th:each="prodottoSimile : ${prodotto.prodottiSimili}">
-					<div class="prodotto d-flex flex-column justify-content-center align-items-center text-center">
-						<div>
-							<a th:href="@{/prodotto/{id}(id=${prodottoSimile.id})}">
-								<img class="immagine" th:src="@{'/images/prodotti/' + ${prodottoSimile.immagine}}"
-									alt="Prodotto">
-
-								<p th:text="${prodottoSimile.nome}"
-									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
-									Prodotto i
-								</p>
-								<p th:text="'€' + ${prodottoSimile.prezzo}"
-									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
-									€50,00
-								</p>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</section>
-
-		<hr class="section-divider">
+		<div th:replace="fragments/prodottoDettagli :: dettagli-prodotto"></div>
 
 		<section class="commenti">
 			<p>Commenti</p>
 			<div th:if="${commentoUser.id == null}">
-				<form class="commento" th:action="@{/user/newCommento/{id}(id=${prodotto.id})}" th:object="${commentoUser}" method="post">
+				<form class="commento" th:action="@{/user/newCommento/{id}(id=${prodotto.id})}"
+					th:object="${commentoUser}" method="post">
 
 					<div>
 						<label for="descrizione">Descrizione</label><br>
-						<input type="text" th:field="*{descrizione}" id="descrizione" required>
+						<textarea type="text" th:field="*{descrizione}" id="descrizione" required></textarea>
 					</div>
 
 					<button class="coffe-button" type="submit">Salva</button>
 				</form>
 			</div>
 			<div th:if="${commentoUser.id != null}">
-				<div class="commento">
-					<div>
-						<p th:text="${commento.data}" class="nomePrezzo fw-semibold">
-							Data
-						</p>
-						<p th:text="${commento.user.nome}" class="nomePrezzo fw-semibold">
+				<div>
+					<div class="nomeUser">
+						<span th:text="${commentoUser.user.nome}" class="nomePrezzo fw-semibold">
 							Nome
-						</p>
-						<p th:text="${commento.user.cognome}">
+						</span>
+						<span th:text="${commentoUser.user.cognome.substring(0,1) + '.'}"
+							class="nomePrezzo fw-semibold">
 							Cognome
-						</p>
-						<p th:text="${commento.descrizione}">
+						</span>
+						<span th:text="${commentoUser.data}" class="data ms-3">
+							Data
+						</span>
+					</div>
+					<div class="commento">
+						<p th:text="${commentoUser.descrizione}" class="mb-4">
 							Descrizione
 						</p>
+						<button class="coffe-button"><a
+								th:href="@{/user/editCommento/{id}(id=${prodotto.id})}">Modifica</a></button>
+						<button class="coffe-button"><a
+								th:href="@{/user/deleteCommento/{id}(id=${prodotto.id})}">Cancella</a></button>
 					</div>
-					<button class="hair-button "><a th:href="@{/user/editCommento/{id}(id=${prodotto.id})}">Modifica</a></button>
-					<button class="hair-button "><a th:href="@{/user/deleteCommento/{id}(id=${prodotto.id})}">Cancella</a></button>
 				</div>
 			</div>
-			<!--
-			<form class="commento" th:object="${commento}" th:action="@{${commento.id} != null ? '/user/editCommento' : '/user/newCommento'}"
-				method="post">
-				<!- Campo nascosto per determinare se è una creazione, modifica o cancellazione ->
-				<input type="hidden" th:field="*{id}" />
-
-				<div>
-					<label for="descrizione">Descrizione</label><br>
-					<input type="text" class="text-start" name="descrizione" id="descrizione" th:field="*{descrizione}" required>
-				</div>
-
-				<!- Se il commento esiste, mostra un bottone per modificare o cancellare ->
-				<div th:if="${commento.id != null}">
-					<button class="coffe-button" type="submit">Modifica</button>
-					<button class="coffe-button" type="button"
-						th:onclick="|window.location.href='/user/deleteCommento/{id}'|">Cancella</button>
-				</div>
-
-				<!- Se il commento non esiste (nuovo), mostra il bottone "Salva" ->
-				<div th:if="${commento.id == null}">
-					<button class="coffe-button" type="submit">Salva</button>
-				</div>
-			</form>
-
-			-->
 
 			<div th:each="commento : ${commenti}">
-				<div class="commento">
-					<div>
-						<p th:text="${commento.data}" class="nomePrezzo fw-semibold">
-							Data
-						</p>
-						<p th:text="${commento.user.nome}" class="nomePrezzo fw-semibold">
+				<div>
+					<div class="nomeUser">
+						<span th:text="${commento.user.nome}" class="nomePrezzo fw-semibold">
 							Nome
-						</p>
-						<p th:text="${commento.user.cognome}">
+						</span>
+						<span th:text="${commento.user.cognome.substring(0,1) + '.'}" class="nomePrezzo fw-semibold">
 							Cognome
-						</p>
+						</span>
+						<span th:text="${commento.data}" class="data ms-3">
+							Data
+						</span>
+					</div>
+					<div class="commento">
 						<p th:text="${commento.descrizione}">
 							Descrizione
 						</p>
 					</div>
+
 				</div>
 			</div>
 

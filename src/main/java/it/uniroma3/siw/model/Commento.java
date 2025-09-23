@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Commento {
@@ -25,7 +26,7 @@ public class Commento {
 	@Column(nullable = false)
 	private String descrizione;
 	
-	@NotBlank(message = "date field must not be blank")
+	@NotNull(message = "date field must not be null")
     @Column(nullable = false)
     private LocalDate data;
 

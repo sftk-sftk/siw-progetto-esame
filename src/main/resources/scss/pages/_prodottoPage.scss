@@ -2,18 +2,43 @@
 	.immagine {
 		width: 20rem;
 	}
-	
-	.commenti {
-			margin: 2rem 1rem;
-			padding: 1rem;
-			//background-color: $white-color;
-			//box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
 
-			.commento {
-				background-color: $shadow-color;
-				box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
-				min-height: 5rem;
-				min-width: 30rem;
+	.commenti {
+		margin: 2rem 1rem;
+		padding: 1rem;
+
+		//background-color: $white-color;
+		//box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
+		.nomeUser {
+			margin: 2rem 1rem 0rem 1rem;
+			padding: 1rem;
+			background-color: $hair-color;
+			box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
+
+			span {
+				font-size: 2rem;
+				color: $light-hair-color;
+			}
+
+			.data {
+				font-size: 1.5rem;
 			}
 		}
+
+		.commento {
+			margin: 0rem 1rem 2rem 1rem;
+			padding: 1.5rem 1rem;
+			background-color: $shadow-color;
+			box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
+			min-height: 5rem;
+			min-width: 30rem;
+
+			#descrizione {
+				min-height: 5rem;
+				min-width: 20rem;
+				max-width: 50rem;
+
+			}
+		}
+	}
 }

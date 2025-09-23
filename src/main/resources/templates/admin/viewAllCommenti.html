@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Uma Coffe Prodotto')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<main class="index prodottoPage">
+
+		<section class="text-center">
+			<h1 class="title">Commenti</h1>
+			<p class="text-justify text-md-center">Qui puoi trovare tutti i commenti che sono stati inseriti nel sito. 
+				Puoi filtrare la ricerca per prodotto, per parola contenuta o per data</p>
+			
+			<form class="d-flex flex-column align-items-center" th:action="@{/admin/viewAllCommenti}" method="get">
+			        <div class="mb-3">
+			            <input type="text" id="nomeProdotto" name="nomeProdotto" th:value="${nomeProdotto}" placeholder="Cerca per prodotto">
+			        </div>
+
+			        <div class="mb-3">
+			            <input type="text" id="parola" name="parola" th:value="${parola}" placeholder="Cerca per parola">
+			        </div>
+
+			        <div class="mb-3">
+			            <input type="date" id="data" name="data" th:value="${data}">
+			        </div>
+
+			        <button class="hair-button" type="submit">Cerca</button>
+			    </form>
+		</section>
+
+		<section class="commenti">
+			<div th:each="commento : ${commenti}">
+				<div>
+					<div class="nomeUser">
+						<span th:text="${commento.user.nome}" class="nomePrezzo fw-semibold">
+							Nome
+						</span>
+						<span th:text="${commento.user.cognome.substring(0,1) + '.'}" class="nomePrezzo fw-semibold">
+							Cognome
+						</span>
+						<span th:text="${commento.data}" class="data ms-3">
+							Data
+						</span>
+					</div>
+					<div class="commento">
+						<p th:text="${commento.descrizione}">
+							Descrizione
+						</p>
+						<p th:text="'-- Commento relativo a ' + ${commento.prodotto.nome}">
+							Prodotto
+						</p>
+						<button class="coffe-button"><a
+								th:href="@{/prodotto/{id}(id=${commento.prodotto.id})}">Prodotto</a></button>
+						<button class="coffe-button"><a
+								th:href="@{/admin/deleteCommento/{id}(id=${commento.id})}">Cancella</a></button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+</body>
+
+</html>

@@ -1,11 +1,14 @@
 package it.uniroma3.siw.service;
 
 import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.repository.ProdottoRepository;
@@ -57,6 +60,10 @@ public class ProdottoService {
 
 	public Prodotto findById(Long id) {
 		return prodottoRepository.findById(id).orElse(null);
+	}
+
+	public List<Prodotto> findTopByCommenti(Pageable pageable) {
+		return prodottoRepository.findTop3ByCommenti(pageable);
 	}
 
 

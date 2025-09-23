@@ -9,13 +9,35 @@
 
 
 	<main class="index prodottoPage">
-		
+
 		<div th:replace="fragments/prodottoDettagli :: dettagli-prodotto"></div>
 
 		<section class="commenti">
 			<p>Commenti</p>
+			<form th:action="@{/user/editCommento/{id}(id=${prodotto.id})}" th:object="${commentoUser}" method="post">
 
-			<div th:each="commento : ${prodotto.commenti}">
+				<!-- Campo nascosto con l'ID del commento -->
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{user}" />
+				<input type="hidden" th:field="*{prodotto}" />
+
+				<div class="nomeUser">
+					<span th:text="${commentoUser.user.nome}" class="nomePrezzo fw-semibold">Nome</span>
+					<span th:text="${commentoUser.user.cognome.substring(0,1) + '.'}"
+						class="nomePrezzo fw-semibold">Cognome</span>
+					<span th:text="${commentoUser.data}" class="data ms-3">Data</span>
+				</div>
+
+				<div class="commento">
+					<div>
+						<label for="descrizione">Descrizione</label><br>
+						<textarea type="text" th:field="*{descrizione}" id="descrizione" required></textarea>
+					</div>
+					<button class="coffe-button" type="submit">Salva</button>
+				</div>
+			</form>
+
+			<div th:each="commento : ${commenti}">
 				<div>
 					<div class="nomeUser">
 						<span th:text="${commento.user.nome}" class="nomePrezzo fw-semibold">
@@ -35,6 +57,7 @@
 					</div>
 				</div>
 			</div>
+
 		</section>
 
 	</main>

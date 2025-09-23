@@ -646,11 +646,31 @@ form input[type=checkbox]:focus {
   margin: 2rem 1rem;
   padding: 1rem;
 }
+.prodottoPage .commenti .nomeUser {
+  margin: 2rem 1rem 0rem 1rem;
+  padding: 1rem;
+  background-color: #5f5766;
+  box-shadow: 0 0.2rem 0.2rem #cabb98;
+}
+.prodottoPage .commenti .nomeUser span {
+  font-size: 2rem;
+  color: #c7c4c9;
+}
+.prodottoPage .commenti .nomeUser .data {
+  font-size: 1.5rem;
+}
 .prodottoPage .commenti .commento {
+  margin: 0rem 1rem 2rem 1rem;
+  padding: 1.5rem 1rem;
   background-color: #beb39e;
   box-shadow: 0 0.2rem 0.2rem #cabb98;
   min-height: 5rem;
   min-width: 30rem;
+}
+.prodottoPage .commenti .commento #descrizione {
+  min-height: 5rem;
+  min-width: 20rem;
+  max-width: 50rem;
 }
 
 /*# sourceMappingURL=main.css.map */

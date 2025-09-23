@@ -55,7 +55,7 @@ public class AuthConfiguration { // Spring Authentication configuration class
 						 */
 						.requestMatchers(HttpMethod.GET, "/", "/oauth2/**", "/index", "/register", "/registerAdmin",
 								"/emailErrorRegister", "/emailErrorAdminRegister", "/css/**", "/js/**", "/static/**",
-								"/images/**", "favicon.ico", "/error", "/catalogo", "/catalogo10Euro", "/catalogoPiuDiscussi",
+								"/images/**", "favicon.ico", "/error", "/catalogo", "/catalogo10Euro", "/catalogoDelMomento",
 								"/prodotto/**")
 						.permitAll()
 						/*

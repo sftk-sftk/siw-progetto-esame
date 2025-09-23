@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,7 +63,7 @@ public class AuthenticationController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		// crea wishlist: prodotto in più whilist è il più amato
-		List<Prodotto> prodottiPiuDiscussi3 = prodottoService.find3Prodotti();
+		List<Prodotto> prodottiPiuDiscussi3 = prodottoService.findTopByCommenti(PageRequest.of(0, 3));
 		List<Prodotto> prodotti10Euro3 = prodottoService.find3Prodotti10Euro();
 		
 		model.addAttribute("prodottiPiuDiscussi3", prodottiPiuDiscussi3);
@@ -84,14 +85,14 @@ public class AuthenticationController {
 		return "catalogo"; // nome della pagina Thymeleaf (catalogo.html)
 	}
 	
-	@GetMapping(value = "/catalogoPiuDiscussi")
-	public String catalogoPiuDiscussi(Model model) {
+	@GetMapping(value = "/catalogoDelMomento")
+	public String catalogoDelMomento(Model model) {
 		
-		List<Prodotto> prodottiPiuDiscussi = prodottoService.findAll();
+		List<Prodotto> prodottiPiuDiscussi = prodottoService.findTopByCommenti(PageRequest.of(0, 9));
 		
 		model.addAttribute("prodottiPiuDiscussi", prodottiPiuDiscussi);
 		
-		return "catalogoPiuDiscussi";
+		return "catalogoDelMomento";
 	}
 	
 	@GetMapping(value = "/catalogo10Euro")
@@ -119,7 +120,6 @@ public class AuthenticationController {
 		
 		if (credentials != null && credentials.getRole().equals(Credentials.USER)) {
 			User user = credentials.getUser();
-			model.addAttribute("user", user);
 			
 			Commento commento = commentoService.findByProdottoAndUser(prodotto, user);
 			
@@ -133,6 +133,7 @@ public class AuthenticationController {
 				commenti.remove(commento);
 			}
 			
+			model.addAttribute("user", user);
 			model.addAttribute("commentoUser", commento);
 			model.addAttribute("commenti", commenti);
 			
