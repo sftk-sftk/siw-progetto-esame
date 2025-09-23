@@ -1,11 +1,107 @@
-.text-center {
-	.button {
-		margin: 5rem 0rem;
+.index {
+	.text-center {
+		.button {
+			margin: 3.5rem 0rem;
+		}
 	}
 
-	.products {
-		margin: 0.5rem;
+	.prodotti {
+		margin: 2rem 1rem;
+		padding: 1rem;
 		background-color: $white-color;
 		box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
+
+		.prodotto {
+			background-color: $top-coffe-color;
+			border-radius: 20rem;
+			height: 23rem;
+
+			.immagine {
+				width: 15rem;
+				cursor: pointer;
+				transition: transform 0.3s ease-in-out;
+
+				&:hover {
+					transform: translateY(-0.8rem);
+				}
+			}
+		}
+	}
+
+	.prodottiCatalogo {
+		margin: 2rem 1rem;
+		padding: 1rem;
+		//background-color: $white-color;
+		//box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
+
+		.prodotto {
+			background-color: $top-coffe-color;
+			border-radius: 20rem;
+			height: 23rem;
+
+			.immagine {
+				width: 15rem;
+				cursor: pointer;
+				transition: transform 0.3s ease-in-out;
+
+				&:hover {
+					transform: translateY(-0.8rem);
+				}
+			}
+		}
+	}
+
+	.dati{
+		width: 50rem;
+	}
+	
+	.chicchiCaffe {
+		margin: 2rem 1rem;
+		padding: 1rem;
+		//background-color: $white-color;
+		//box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
+
+		.chiccoCaffe {
+			all: unset;
+			background-color: $top-coffe-color;
+			border-radius: 20rem;
+			height: 20rem;
+			width: 20rem;
+
+			font-family: $font-logo;
+			font-weight: $light-text;
+
+			p {
+				font-size: 2.5rem;
+			}
+
+			cursor: pointer;
+			transition: transform 0.3s ease-in-out;
+
+			&:hover {
+				transform: translateY(-0.8rem);
+			}
+		}
+
+		.piccoloChiccoCaffe {
+			background-color: $top-coffe-color;
+			border-radius: 20rem;
+			height: 10rem;
+			width: 10rem;
+
+			font-family: $font-logo;
+			font-weight: $light-text;
+
+			p {
+				font-size: 1.5rem;
+			}
+
+			cursor: pointer;
+			transition: transform 0.3s ease-in-out;
+
+			&:hover {
+				transform: translateY(-0.8rem);
+			}
+		}
 	}
 }

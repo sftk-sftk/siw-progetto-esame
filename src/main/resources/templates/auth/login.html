@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Uma Coffe Login')"></head>
+
+<body class="bg-coffe">
+	<main class="auth text-center">
+		<section class="mx-auto">
+			<h1 class="title">Uma Coffe Login</h1>
+			<p>Inserisci le tue credenziali per accedere</p>
+			
+			<form th:action="@{/login}" method="post">
+				<div>
+					<label for="email">Email</label><br>
+					<input type="email" id="email" name="email" placeholder="Email" required>
+				</div>
+
+				<div>
+					<label for="password">Password</label><br>
+					<input type="password" id="password" name="password" placeholder="Password" required>
+				</div>
+
+				<button type="submit" class="jewels-button mt-4 mb-4">Accedi</button>
+			</form>
+			<p class="mt-3">Non hai un account?</p><p><a class="aUnderline" href="/register">Registrati</a></p>
+			<p>Vuoi diventare un amministratore?</p><p><a class="aUnderline" href="/registerAdmin">Registrati</a></p>
+			<p>Ritorna alla <a class="aUnderline" href="/">home</a></p>
+		</section>
+	</main>
+</body>
+
+</html>

@@ -8,4 +8,7 @@ import it.uniroma3.siw.model.Tipologia;
 @Repository
 public interface TipologiaRepository extends CrudRepository<Tipologia, Long> {
 
+	Tipologia findByNome(String nomeTipologia);
+
+	
 }

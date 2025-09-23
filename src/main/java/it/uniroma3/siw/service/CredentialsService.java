@@ -40,8 +40,15 @@ public class CredentialsService {
 	}
 
 	@Transactional
-	public Credentials saveCredentials(Credentials credentials) {
+	public Credentials saveCredentialsUser(Credentials credentials) {
 		credentials.setRole(Credentials.USER);
+		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
+		return this.credentialsRepository.save(credentials);
+	}
+	
+	@Transactional
+	public Credentials saveCredentialsAdmin(Credentials credentials) {
+		credentials.setRole(Credentials.ADMIN);
 		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
 		return this.credentialsRepository.save(credentials);
 	}

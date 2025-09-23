@@ -50,15 +50,69 @@ nav {
 	}
 }
 
+// mobile-drawer
+
+.mobile-drawer {
+	position: fixed;
+	top: 0;
+	left: -250px; // inizialmente nascosto
+	width: 250px;
+	height: 100vh;
+	background-color: $coffe-color;
+	box-shadow: 2px 0 5px $shadow-color;
+	transition: left 0.3s ease-in-out;
+	padding: 1rem;
+	z-index: 9999;
+
+	ul {
+		list-style: none;
+		padding: 0;
+
+		li {
+			margin-bottom: 1rem;
+
+			a {
+				color: $font-color;
+				text-decoration: none;
+				font-size: 1.2rem;
+			}
+		}
+	}
+}
+
+.mobile-drawer.active {
+	left: 0; // show menu
+}
+
+.menu-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: $font-color;
+	z-index: 9998;
+	display: none;
+}
+
+.menu-overlay.active {
+	display: block;
+}
+
+//
+
 .section-divider {
-  border: none;
-  border-top: 0.5rem dashed $top-coffe-color; // spessore, stile tratteggiato, colore
-  margin: 3rem auto;            // spazio sopra e sotto
-  width: 80%;                   // lunghezza della linea
+	border: none;
+	border-top: 0.5rem dashed $top-coffe-color; // spessore, stile tratteggiato, colore
+	margin: 3rem auto; // spazio sopra e sotto
+	width: 80%; // lunghezza della linea
 }
 
 footer {
-	color: $white-color;
+	p {
+		color: $light-hair-color;
+	}
+
 	background-color: $hair-color;
 	border: 0.01rem solid $dark-hair-color;
 }

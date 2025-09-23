@@ -1,0 +1,325 @@
+form {
+	label {
+		font-weight: $bold-text;
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+		color: $font-color;
+		margin: clamp(0.3rem, 0.5vw, 0.5rem) clamp(0.3rem, 0.5vw, 0.5rem);
+
+		//display: block;
+	}
+
+	input[type="text"] {
+		padding: 0rem 0.1rem 0rem 0.1rem; // top | right | bottom | left
+		min-width: clamp(13rem, 15vw, 15rem);
+		max-width: clamp(13rem, 15vw, 15rem);
+		min-height: clamp(2rem, 2vw, 2rem);
+		margin: 0rem 0.8rem 0.8rem 0.3rem;
+		border: 1px solid $top-coffe-color;
+		border-radius: 0.3rem;
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+		color: $font-color;
+
+		appearance: none; // rimuove lo stile di default del browser (freccia inclusa)
+		-moz-appearance: none;
+		-webkit-appearance: none;
+
+		&::placeholder {
+			font-weight: $light-text;
+			color: $top-coffe-color;
+		}
+
+		&:focus {
+			border: 1px solid $top-coffe-color;
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+	}
+	
+	input[type="email"] {
+		padding: 0rem 0.1rem 0rem 0.1rem; // top | right | bottom | left
+		min-width: clamp(13rem, 15vw, 15rem);
+		max-width: clamp(13rem, 15vw, 15rem);
+		min-height: clamp(2rem, 2vw, 2rem);
+		margin: 0rem 0.8rem 0.8rem 0.3rem;
+		border: 1px solid $top-coffe-color;
+		border-radius: 0.3rem;
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+		color: $font-color;
+
+		appearance: none; // rimuove lo stile di default del browser (freccia inclusa)
+		-moz-appearance: none;
+		-webkit-appearance: none;
+
+		&::placeholder {
+			font-weight: $light-text;
+			color: $top-coffe-color;
+		}
+
+		&:focus {
+			border: 1px solid $top-coffe-color;
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+	}
+	
+	input[type="password"] {
+		padding: 0rem 0.1rem 0rem 0.1rem; // top | right | bottom | left
+		min-width: clamp(13rem, 15vw, 15rem);
+		max-width: clamp(13rem, 15vw, 15rem);
+		min-height: clamp(2rem, 2vw, 2rem);
+		margin: 0rem 0.8rem 0.8rem 0.3rem;
+		border: 1px solid $top-coffe-color;
+		border-radius: 0.3rem;
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+		color: $font-color;
+
+		appearance: none; // rimuove lo stile di default del browser (freccia inclusa)
+		-moz-appearance: none;
+		-webkit-appearance: none;
+
+		&::placeholder {
+			font-weight: $light-text;
+			color: $top-coffe-color;
+		}
+
+		&:focus {
+			border: 1px solid $top-coffe-color;
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+	}
+
+	input[type="number"] {
+		padding: 0rem 0.1rem 0rem 0.1rem; // top | right | bottom | left
+		min-width: clamp(2rem, 4vw, 4rem);
+		max-width: clamp(13rem, 15vw, 15rem);
+		min-height: clamp(2rem, 2vw, 2rem);
+		margin: 0rem 0.8rem 0.8rem 0.3rem;
+		border: 1px solid $top-coffe-color;
+		border-radius: 0.3rem;
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+		color: $font-color;
+
+		&::placeholder {
+			font-weight: $light-text;
+			color: $top-coffe-color;
+		}
+
+		&:focus {
+			border: 1px solid $top-coffe-color;
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+	}
+
+	.select {
+		padding: 0.5rem 1rem;
+		min-width: clamp(2rem, 4vw, 4rem);
+		max-width: clamp(13rem, 15vw, 15rem);
+		min-height: clamp(2rem, 2vw, 2rem);
+
+		margin: 0rem 0.8rem 0.8rem 0.3rem;
+		border: 1px solid $top-coffe-color;
+		border-radius: 0.4rem;
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+
+		color: $font-color;
+		background-color: $white-color;
+
+		appearance: none; // Rimuove freccia default
+		-moz-appearance: none;
+		-webkit-appearance: none;
+
+		background-image: url("/images/freccia.svg"); // (facoltativo: icona freccia personalizzata)
+		background-repeat: no-repeat;
+		//background-position: right 1rem center;
+		background-size: 1rem;
+
+		cursor: pointer;
+
+		&:focus {
+			border: 1px solid $top-coffe-color;
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+	}
+
+	/*
+	textarea {
+		padding: 0.5rem 1rem;
+		margin: 0.5rem auto;
+		
+		background-color: $white-color;
+		border: 1px solid $top-coffe-color;
+		border-radius: 0.4rem;
+		
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+		color: $font-color;
+
+		&::placeholder {
+			font-weight: $light-text;
+			color: $top-coffe-color;
+		}
+	}*/
+	#descrizione {
+		//resize: vertical; // consente di ridimensionare verticalmente
+		min-height: 10rem;
+		max-width: 50rem;
+		padding: 0.5rem 1rem;
+		
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+		border: 1px solid $top-coffe-color;
+		border-radius: 0.4rem;
+		color: $font-color;
+
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+
+		&::placeholder {
+			font-weight: $light-text;
+			color: $top-coffe-color;
+		}
+	}
+
+	.file {
+		padding: 0.5rem 1rem;
+		background-color: $top-coffe-color;
+		border: 1px solid $shadow-color;
+		border-radius: 0.4rem;
+		font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+		color: $font-color;
+
+		transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+
+		&:hover {
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+
+		&::file-selector-button {
+			margin: 0rem 0rem;
+
+			background-color: $light-eyes-color;
+			border: none;
+			border-radius: 0.4rem;
+
+			color: $font-color;
+			padding: 0.5rem 1rem;
+
+			font-weight: bold;
+
+			cursor: pointer;
+
+			&:hover {
+				background-color: $eyes-color;
+			}
+		}
+	}
+
+	.listaProdottiSimili {
+		margin: 0rem 3rem 0rem 0rem;		
+		width: auto;
+		max-height: 50rem;
+		overflow-y: auto;
+		border: 1px solid $shadow-color;
+		border-radius: 0.4rem;
+		padding: 1rem;
+	}
+
+	input[type="checkbox"] {
+		margin: 0rem 0rem 0rem 0.3rem;
+		min-width: 1.4rem;
+		min-height: 1.4rem;
+		border: 1px solid $shadow-color;
+		border-radius: 1rem;
+		
+		cursor: pointer;
+		accent-color: $top-coffe-color;
+
+		// Rimuovi il bordo nativo se vuoi un design uniforme su tutti i browser
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background-color: $white-color;
+
+		&:checked {
+			background-color: $top-coffe-color;
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 5px $shadow-color;
+		}
+	}
+
+
+	/*
+	input[type="date"] {
+		padding: 0rem 0.1rem 0rem 0.1rem; // top | right | bottom | left
+		min-width: clamp(13rem, 15vw, 15rem);
+		max-width: clamp(13rem, 15vw, 15rem);
+		min-height: clamp(1rem, 1.4vw, 1.4rem);
+		margin: 0rem 0.8rem 0.8rem 0.3rem;
+		border: 1px solid $text-color;
+		border-radius: 0.3rem;
+		font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+		color: $text-color;
+
+		&::placeholder {
+			font-weight: $light-text;
+			color: $gray-color;
+		}
+	}
+
+	input[type="time"] {
+		padding: 0rem 0.1rem 0rem 0.1rem; // top | right | bottom | left
+		min-width: clamp(5rem, 7.5vw, 7.5rem);
+		max-width: clamp(13rem, 15vw, 15rem);
+		min-height: clamp(1rem, 1.4vw, 1.4rem);
+		margin: 0rem 0.8rem 0.8rem 0.3rem;
+		border: 1px solid $text-color;
+		border-radius: 0.3rem;
+		font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+		color: $text-color;
+
+		appearance: none; // rimuove lo stile di default del browser (freccia inclusa)
+		-moz-appearance: none;
+		-webkit-appearance: none;
+
+		&::placeholder {
+			font-weight: $light-text;
+			color: $gray-color;
+		}
+	}
+
+	input[type="checkbox"] {
+		margin: 0rem 0rem 0rem 0.3rem;
+		min-width: 1.4rem;
+		min-height: 1.4rem;
+		border: 1px solid $text-color;
+		cursor: pointer;
+		accent-color: $text-color; // Colore del segno di spunta (supportato nei browser moderni)
+
+		// Rimuovi il bordo nativo se vuoi un design uniforme su tutti i browser
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background-color: $white-color;
+
+		&:checked {
+			background-color: $text-color;
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 0 2px rgba($text-color, 0.3);
+		}
+	}*/
+}

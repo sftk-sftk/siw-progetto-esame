@@ -1,0 +1,43 @@
+.auth {
+	section {
+		margin: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 3vw, 3rem);
+		padding: clamp(3rem, 3vw, 3rem) clamp(1rem, 3vw, 3rem);
+		width: clamp(18rem, 35vw, 35rem);
+		background-color: transparentize($hair-color, 0.1);
+		border: 0.01rem solid $dark-hair-color;
+		border-radius: 0.3rem;
+		box-shadow: 0 0.2rem 0.2rem $dark-hair-color;
+
+		p {
+			color: $light-hair-color;
+		}
+
+		label {
+			color: $light-hair-color;
+		}
+
+		input[type="text"] {
+			border: 1px solid $dark-hair-color;
+
+			&::placeholder {
+				color: $light-hair-color;
+			}
+		}
+
+		input[type="email"] {
+			border: 1px solid $dark-hair-color;
+
+			&::placeholder {
+				color: $light-hair-color;
+			}
+		}
+
+		input[type="password"] {
+			border: 1px solid $dark-hair-color;
+
+			&::placeholder {
+				color: $light-hair-color;
+			}
+		}
+	}
+}

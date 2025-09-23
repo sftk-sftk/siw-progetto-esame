@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -68,5 +69,13 @@ public class Tipologia {
 		Tipologia other = (Tipologia) obj;
 		return Objects.equals(id, other.id) && Objects.equals(nome, other.nome)
 				&& Objects.equals(prodotti, other.prodotti);
+	}
+
+	public void add(Prodotto prodotto) {
+		if(prodotti==null) {
+			prodotti = new ArrayList<>();
+		}
+		prodotti.add(prodotto);
+		
 	}
 }

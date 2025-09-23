@@ -21,13 +21,13 @@
 			<if th:if="${credentials != null}">
 				<if th:if="${credentials != null}">
 					<div class="eyes-button">
-					<a th:href="${credentials.role == 'USER' ? '/user/dashboard' : 
-									            (credentials.role == 'ADMIN' ? '/admin/dashboard' : '')}">
+					<a th:href="${credentials.role == 'USER' ? '/user/indexUser' : 
+									            (credentials.role == 'ADMIN' ? '/admin/indexAdmin' : '')}">
 						Profilo</a></div>
 				</if>
 			</if>
 			<if th:if="${credentials != null}">
-				<a class="coffe-button" href="/logout">Logout</a>
+				<div class="jewels-button" ><a href="/logout">Logout</a></div>
 			</if>
 		</div>
 	</nav>
@@ -39,9 +39,7 @@
 			<img src="/images/icons/menu.svg">
 		</button>
 		<div class="mx-auto">
-			<a href="/">
-				<img src="/images/icons/logo-airdesk.jpeg 2.svg" alt="AirDesk Logo" class="logo-mobile">
-			</a>
+				<div class="logo"><a href="/">Uma Coffe</a></div>
 		</div>
 	</nav>
 
@@ -49,7 +47,7 @@
 	<div id="mobile-menu" class="mobile-drawer d-md-none">
 		<ul>
 			<li>
-				<h2>AIRDESK</h2>
+				<div class="logo"><a href="/">Uma Coffe</a></div>
 			</li>
 			<li><a href="/">Home</a></li>
 			<li>
@@ -58,14 +56,12 @@
 				</if>
 				<!-- ALTERNATIVE WAY TO CHECK FOR AUTHENTICATED USER, boolean expression to ensure correct behavior -->
 				<if th:if="${credentials != null}">
-					<a
-						th:href="${credentials.user != null ? '/userPage' : 
-			    (credentials.host != null ? '/host/dashboard' : 
-			    (credentials.intermediateHost != null ? '/intermediateHost/dashboard' : (credentials.employee != null ? '/employee/employeePage' : '')))}">
-						Il Mio Profilo </a>
+					<a th:href="${credentials.role == 'USER' ? '/user/indexUser' : 
+														            (credentials.role == 'ADMIN' ? '/admin/indexAdmin' : '')}">
+											Profilo</a>
 				</if>
 			</li>
-			<li><a href="/chooseService">Licenze</a></li>
+			<li><a href="/catalogo">Catalogo</a></li>
 			<li>
 				<!-- ALTERNATIVE WAY TO CHECK FOR AUTHENTICATED USER, boolean expression to ensure correct behavior -->
 				<if th:if="${credentials != null}">

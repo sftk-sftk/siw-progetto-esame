@@ -30,3 +30,24 @@ a {
 	color: inherit; // Mantiene il colore del testo del genitore
 	text-decoration: none;
 }
+
+.link {
+	//text-decoration: underline;
+	color: $title-color;
+	font-family: $font-title;
+}
+
+.nomePrezzo {
+	font-family: $font-title;
+}
+
+.nomePrezzoGrande{
+	font-family: $font-title;
+	font-size: 4rem;
+}
+
+.aUnderline {
+	//text-decoration: underline;
+	font-family: $font-logo;
+	color: $jewels-color;
+}

@@ -13,7 +13,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -26,8 +29,12 @@ public class Prodotto {
 	@NotBlank(message = "name field must not be blank")
 	@Column(nullable = false)
 	private String nome;
+	
+	@Column(name = "immagine")
+	private String immagine; // es: "tazzaTeio.jpg"
 
-	@NotBlank(message = "price field must not be blank")
+	@NotNull(message = "Il prezzo non può essere nullo")
+	@DecimalMin(value = "0.00", message = "Il prezzo deve essere maggiore di zero")
 	@Column(nullable = false)
 	private BigDecimal prezzo;
 
@@ -41,7 +48,7 @@ public class Prodotto {
 	@OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Commento> commenti = new ArrayList<>();
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Tipologia tipologia;
 
 	// GETTER E SETTER
@@ -99,6 +106,14 @@ public class Prodotto {
 
 	public void setTipologia(Tipologia tipologia) {
 		this.tipologia = tipologia;
+	}
+
+	public String getImmagine() {
+		return immagine;
+	}
+
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
 	}
 
 	// HASHCODE E EQUALS

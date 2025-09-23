@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Uma Coffe')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<main class="index prodottoPage">
+		<div class="row g-5 ms-3">
+			<div class="col-12 col-md-4">
+				<img class="immagine" th:src="@{'/images/prodotti/' + ${prodotto.immagine}}" alt="Prodotto">
+			</div>
+
+			<div class="col-12 col-md-4">
+
+				<p th:text="${prodotto.nome}" class="nomePrezzo text-justify fw-semibold">
+					Prodotto i
+				</p>
+
+				<p th:text="'Tipologia: ' + ${prodotto.tipologia.nome}">
+					Tipologia i
+				</p>
+
+				<p th:text="${prodotto.descrizione}" class="text-justify">
+					Descrizione i
+				</p>
+
+			</div>
+
+			<div class="col-12 col-md-4 d-flex align-items-center justify-content-center">
+				<p th:text="'€' + ${prodotto.prezzo}" class="nomePrezzoGrande text-center">
+					Prezzo i
+				</p>
+			</div>
+		</div>
+
+		<hr class="section-divider">
+		
+		<section class="prodotti">
+			<p>Prodotti simili</p>
+			<div class="row g-3">
+				<div class="col-12 col-sm-6 col-md-4" th:each="prodotto : ${prodotto.prodottiSimili}">
+					<div class="prodotto d-flex flex-column justify-content-center align-items-center text-center">
+						<div>
+							<a th:href="@{/prodotto/{id}(id=${prodotto.id})}">
+								<img class="immagine" th:src="@{'/images/prodotti/' + ${prodotto.immagine}}"
+									alt="Prodotto">
+
+								<p th:text="${prodotto.nome}"
+									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									Prodotto i
+								</p>
+								<p th:text="'€' + ${prodotto.prezzo}"
+									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									€50,00
+								</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		
+		<hr class="section-divider">
+		
+		<section class="commenti">
+			<p>Commenti</p>
+
+		</section>
+
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+</body>
+
+</html>

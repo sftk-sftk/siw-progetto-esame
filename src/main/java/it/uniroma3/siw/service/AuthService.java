@@ -32,6 +32,20 @@ public class AuthService {
         credentialsService.save(credentials);
 		
 	}
+	
+	public void registerAdmin(User user, String password) {
+		Credentials credentials = new Credentials();
+        credentials.setUser(user);
+        credentials.setRole(Credentials.ADMIN);
+        //credentials.setUsername(user.getUsername());
+        credentials.setEmail(user.getEmail());
+        credentials.setPassword(passwordEncoder.encode(password));
+    
+        // Save the user and credentials
+        userService.save(user);
+        credentialsService.save(credentials);
+		
+	}
 
 	public boolean isNicknameOREmailAlreadyTaken(String username, String email) {
 		//if(this.userService.findByUsername(username).size()>0 || this.userService.findByEmail(email).size()>0)

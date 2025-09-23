@@ -1,5 +1,7 @@
 package it.uniroma3.siw.model;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -22,15 +24,19 @@ public class Commento {
 	@NotBlank(message = "description field must not be blank")
 	@Column(nullable = false)
 	private String descrizione;
+	
+	@NotBlank(message = "date field must not be blank")
+    @Column(nullable = false)
+    private LocalDate data;
 
 	// Relazione con User
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "user_id", nullable = false) // Foreign key verso User
+	@ManyToOne
 	private User user;
 
 	// Relazione con Prodotto
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "prodotto_id", nullable = false) // Foreign key verso Prodotto
+	@ManyToOne
 	private Prodotto prodotto;
 
 	// GETTER E SETTER

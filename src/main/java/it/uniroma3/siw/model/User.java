@@ -38,9 +38,7 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String email;
 
-	@Past(message = "birth date must be in the past")
-	private LocalDate birthDate;
-
+	// serve veramente? Sì altrimenti come può modificare il commento?
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Commento> commenti = new ArrayList<>();
 
@@ -77,14 +75,6 @@ public class User {
 		this.email = email;
 	}
 
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-
 	public List<Commento> getCommenti() {
 		return commenti;
 	}
@@ -96,7 +86,7 @@ public class User {
 	// HASHCODE E EQUALS
 	@Override
 	public int hashCode() {
-		return Objects.hash(birthDate, cognome, commenti, email, id, nome);
+		return Objects.hash(cognome, commenti, email, id, nome);
 	}
 
 	@Override
@@ -108,7 +98,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(birthDate, other.birthDate) && Objects.equals(cognome, other.cognome)
+		return  Objects.equals(cognome, other.cognome)
 				&& Objects.equals(commenti, other.commenti) && Objects.equals(email, other.email)
 				&& Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
 	}

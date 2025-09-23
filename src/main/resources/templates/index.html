@@ -8,7 +8,7 @@
 	<div th:replace="fragments/navbar :: navbar"></div>
 
 
-	<main>
+	<main class="index">
 		<section class="text-center">
 			<h1 class="title">Benvenuto ad Uma Coffe</h1>
 			<p>Scopri il nostro catalogo di prodotti di alta qualita' per il tuo caffe</p>
@@ -17,31 +17,57 @@
 			</div>
 		</section>
 		<hr class="section-divider">
-		<section class="products">
-			<p>Prodotti piu' amati</p>
-			<a>Scopri</a>
+		<section class="prodotti">
+			<p>Prodotti piu' discussi <a href="/catalogoPiuDiscussi" class="link ms-4">Scopri</a></p>
+
 			<div class="row g-3">
-				<div class="col-12 col-sm-6 col-md-4" th:each="prodotto : ${prodotti}">
-					<div class="prodotto">
-						<a th:href="@{/prodotto/{id}(id=${prodotto.id})}"
-							class="d-flex flex-column flex-md-row align-items-center p-3 text-decoration-none h-100">
+				<div class="col-12 col-sm-6 col-md-4" th:each="prodotto : ${prodottiPiuDiscussi3}">
+					<div class="prodotto d-flex flex-column justify-content-center align-items-center text-center">
+						<div>
+							<a th:href="@{/prodotto/{id}(id=${prodotto.id})}">
+								<img class="immagine" th:src="@{'/images/prodotti/' + ${prodotto.immagine}}"
+									alt="Prodotto">
 
-							<img src="/images/prodotti/prodotto.svg" alt="Prodotto">
-
-							<p th:text="${prodotto.nome}"
-								class="mt-2 mt-md-0 ms-md-3 text-center text-md-start fw-semibold">
-								Prodotto i
-							</p>
-
-						</a>
+								<p th:text="${prodotto.nome}"
+									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									Prodotto i
+								</p>
+								<p th:text="'€' + ${prodotto.prezzo}"
+									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									€50,00
+								</p>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 
 		</section>
-		<section class="products">
-			<p>Prodotti a piccoli prezzi</p>
-			<a>Scopri</a>
+
+		<section class="prodotti">
+			<p>Prodotti a piccoli prezzi <a href="/catalogo10Euro" class="link ms-4">Scopri</a></p>
+
+			<div class="row g-3">
+				<div class="col-12 col-sm-6 col-md-4" th:each="prodotto : ${prodotti10Euro3}">
+					<div class="prodotto d-flex flex-column justify-content-center align-items-center text-center">
+						<div>
+							<a th:href="@{/prodotto/{id}(id=${prodotto.id})}">
+								<img class="immagine" th:src="@{'/images/prodotti/' + ${prodotto.immagine}}"
+									alt="Prodotto">
+
+								<p th:text="${prodotto.nome}"
+									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									Prodotto i
+								</p>
+								<p th:text="'€' + ${prodotto.prezzo}"
+									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									€50,00
+								</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</section>
 	</main>

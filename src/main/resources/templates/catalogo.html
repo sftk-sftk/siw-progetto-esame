@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Uma Coffe Catalogo')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<main class="index">
+		<section class="text-center">
+			<h1 class="title">Catalogo Uma Coffe</h1>
+			<p>Puoi filtrare la ricerca per nome, per tipologia o per prezzo massimo</p>
+			<form class="d-flex flex-column align-items-center" action="/catalogo" method="get">
+				<div class="mb-3">
+					<input type="text" name="nome" class="form-control" placeholder="Cerca per nome">
+				</div>
+
+				<div class="mb-3">
+					<select name="tipologiaId" class="select">
+						<option value="">Cerca per tipologia</option>
+						<option th:each="tip : ${tipologie}" th:value="${tip.id}" th:text="${tip.nome}"
+							th:selected="${param.tipologiaId != null and param.tipologiaId == tip.id}">
+						</option>
+					</select>
+				</div>
+
+				<div>
+					<input type="number" step="0.01" name="prezzoMax" class="form-control"
+						placeholder="Cerca per prezzo massimo">
+				</div>
+				<div class="button">
+					<button class="hair-button "><a href="/catalogo">Filtra</a></button>
+				</div>
+			</form>
+		</section>
+
+		<section class="prodottiCatalogo">
+
+			<div class="row g-3">
+
+				<div class="col-12 col-sm-6 col-md-4" th:each="prodotto : ${prodotti}">
+					<div class="prodotto d-flex flex-column justify-content-center align-items-center text-center">
+						<div>
+							<a th:href="@{/prodotto/{id}(id=${prodotto.id})}">
+								<img class="immagine" th:src="@{'/images/prodotti/' + ${prodotto.immagine}}" alt="Prodotto">
+
+								<p th:text="${prodotto.nome}" class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									Prodotto i
+								</p>
+								<p th:text="'€' + ${prodotto.prezzo}" class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									€50,00
+								</p>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+</body>
+
+</html>

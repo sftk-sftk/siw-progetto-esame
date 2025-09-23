@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Uma Coffe')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<main class="index">
+		<section class="text-center">
+			<h1 class="title">Prodotti a piccoli prezzi</h1>
+			<div class="button">
+				<button class="hair-button "><a href="/catalogo">Visualizza tutto il Catalogo</a></button>
+			</div>
+		</section>
+		<section class="prodottiCatalogo">
+
+			<div class="row g-3">
+
+				<div class="col-12 col-sm-6 col-md-4" th:each="prodotto : ${prodottiPiuDiscussi}">
+					<div class="prodotto d-flex flex-column justify-content-center align-items-center text-center">
+						<div>
+							<a th:href="@{/prodotto/{id}(id=${prodotto.id})}">
+								<img class="immagine" th:src="@{'/images/prodotti/' + ${prodotto.immagine}}"
+									alt="Prodotto">
+
+								<p th:text="${prodotto.nome}"
+									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									Prodotto i
+								</p>
+								<p th:text="'€' + ${prodotto.prezzo}"
+									class="nomePrezzo mt-auto mx-auto mb-0 text-center fw-semibold">
+									€50,00
+								</p>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+</body>
+
+</html>
