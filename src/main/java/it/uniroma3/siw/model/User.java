@@ -39,8 +39,17 @@ public class User {
 	private String email;
 
 	// serve veramente? Sì altrimenti come può modificare il commento?
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user")
 	private List<Commento> commenti = new ArrayList<>();
+	
+	// Gestione commenti
+	public void add(Commento commento) {
+		this.commenti.add(commento);
+	}
+	
+	public void remove(Commento commento) {
+		this.commenti.remove(commento);
+	}
 
 	// GETTER E SETTER
 	public Long getId() {

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Visualizza Dati')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<main class="index">
+		<section class="text-center">
+			<h1 class="title">Dati personali</h1>
+		</section>
+
+		<div class="d-flex g-3">
+			<div class="dati text-justify ms-5 mt-5">
+				<p th:text="'Nome: ' + ${user.nome}">Nome</p>
+				<p th:text="'Cognome: ' + ${user.cognome}">Cognome</p>
+				<p th:text="'Email: ' + ${user.email}">Email</p>
+			</div>
+			
+			<div class="text-center align-items-center">
+				<section class="chicchiCaffe ms-5">
+					<div class="row g-5 justify-content-center">
+						<div class="col-auto">
+							<div
+								class="piccoloChiccoCaffe d-flex flex-column justify-content-center align-items-center text-center">
+								<div>
+									<p class="mt-auto mx-auto mb-0 text-center">
+										<a href="/user/userInfo">
+											Modifica
+										</a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-auto">
+							<div
+								class="piccoloChiccoCaffe d-flex flex-column justify-content-center align-items-center text-center">
+								<div>
+									<a>
+										<p class="mt-auto mx-auto mb-0 text-center">
+											Cambia Password
+										</p>
+									</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</section>
+			</div>
+		</div>
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+</body>
+
+</html>

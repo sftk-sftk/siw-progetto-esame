@@ -72,6 +72,14 @@ public class Commento {
 		this.prodotto = prodotto;
 	}
 
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
 	// HASHCODE E EQUALS
 	@Override
 	public int hashCode() {

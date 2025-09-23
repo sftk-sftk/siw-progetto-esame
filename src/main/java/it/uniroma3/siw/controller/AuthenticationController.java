@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.model.Commento;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.model.Tipologia;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.AuthService;
+import it.uniroma3.siw.service.CommentoService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ProdottoService;
 import it.uniroma3.siw.service.TipologiaService;
@@ -49,6 +52,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private TipologiaService tipologiaService;
+	
+	@Autowired
+	private CommentoService commentoService;
 
 	// home page
 	@GetMapping(value = "/")
@@ -88,19 +94,6 @@ public class AuthenticationController {
 		return "catalogoPiuDiscussi";
 	}
 	
-	@GetMapping(value = "/prodotto/{id}")
-	public String prodotto(@PathVariable("id") Long id, Model model) {
-		
-		Prodotto prodotto = prodottoService.findById(id);
-		if(prodotto == null) {
-			return "catalogo";
-		}
-		
-		model.addAttribute("prodotto", prodotto);
-		
-		return "prodotto";
-	}
-	
 	@GetMapping(value = "/catalogo10Euro")
 	public String catalogo10Euro(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -110,6 +103,49 @@ public class AuthenticationController {
 		model.addAttribute("prodotti10Euro", prodotti10Euro);
 		
 		return "catalogo10Euro";
+	}
+	
+	@GetMapping(value = "/prodotto/{id}")
+	public String prodotto(@PathVariable("id") Long id, Model model, Authentication authentication) {
+		Credentials credentials = credentialsService.getAuthenticatedUserCredentials().orElse(null);
+		
+		Prodotto prodotto = prodottoService.findById(id);
+		
+		if(prodotto == null) {
+			return "catalogo";
+		}
+		
+		model.addAttribute("prodotto", prodotto);
+		
+		if (credentials != null && credentials.getRole().equals(Credentials.USER)) {
+			User user = credentials.getUser();
+			model.addAttribute("user", user);
+			
+			Commento commento = commentoService.findByProdottoAndUser(prodotto, user);
+			
+			List<Commento> commenti = new ArrayList<>();
+					
+			if(commento == null) {
+				commenti = prodotto.getCommenti();
+				commento = new Commento();
+			} else {
+				commenti = prodotto.getCommenti();
+				commenti.remove(commento);
+			}
+			
+			model.addAttribute("commentoUser", commento);
+			model.addAttribute("commenti", commenti);
+			
+			return "user/prodottoUser";
+		}
+		
+		if (credentials != null && credentials.getRole().equals(Credentials.ADMIN)) {
+			
+			model.addAttribute("admin", credentials.getUser());
+			return "admin/prodottoAdmin";
+		}
+
+		return "prodotto";
 	}
 
 	// login e registrazione
@@ -161,9 +197,7 @@ public class AuthenticationController {
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "freelancerCheckbox", required = false) String freelancerChecked, Model model) {
-		logger.info(
-				"User registered AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-		logger.info("User '{}' registered ", user.getId()); // sarà sempre null finché non lo salvi nel database
+		
 		logger.info("User '{}' registered ", user.getNome());
 		if (!userBindingResult.hasErrors()
 				&& !authService.isNicknameOREmailAlreadyTaken(user.getEmail(), user.getEmail())) {

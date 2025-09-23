@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Uma Coffe Registrazione Admin')"></head>
+
+<body class="bg-coffe">
+	<main class="auth text-center">
+		<section class="mx-auto">
+			<h1 class="title">Uma Coffe Registrazione Admin</h1>
+			<p>Inserisci le tue informazioni per registrarti</p>
+
+			<form th:action="@{/register}" method="post" onsubmit="validatePassword()">
+				<div>
+					<label for="nome">Nome</label><br>
+					<!-- Make field readonly if OIDC user -->
+					<input type="text" id="nome" th:field="*{user.nome}" th:readonly="${isOidc}" placeholder="Nome"
+						required>
+				</div>
+
+				<div>
+					<label for="cognome">Cognome</label><br>
+					<!-- Make field readonly if OIDC user -->
+					<input type="text" id="cognome" th:field="*{user.cognome}" th:readonly="${isOidc}"
+						placeholder="Cognome" required>
+				</div>
+
+				<div>
+					<label for="email">Email</label><br>
+					<!-- Make field readonly if OIDC user -->
+					<input type="email" id="email" th:field="*{user.email}" th:readonly="${isOidc}" placeholder="Email"
+						required>
+				</div>
+
+				<div th:if="${!isOidc}">
+					<label for="password">Password</label><br> <input type="password" id="password" name="password"
+						placeholder="Password" required>
+				</div>
+
+				<div th:if="${!isOidc}">
+					<label for="confirmPassword">Conferma Password</label><br> <input type="password" id="confirmPassword"
+						name="confirmPassword" placeholder="Password" required>
+				</div>
+
+				<button type="submit" class="jewels-button mt-4 mb-4">Registrati</button>
+			</form>
+			<p>Ritorna alla <a class="aUnderline" href="/">home</a></p>
+		</section>
+	</main>
+
+	<!--<script src="/js/register.js"></script>-->
+
+</body>
+
+</html>

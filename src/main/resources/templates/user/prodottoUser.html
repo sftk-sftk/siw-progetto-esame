@@ -69,8 +69,64 @@
 
 		<section class="commenti">
 			<p>Commenti</p>
+			<div th:if="${commentoUser.id == null}">
+				<form class="commento" th:action="@{/user/newCommento/{id}(id=${prodotto.id})}" th:object="${commentoUser}" method="post">
 
-			<div th:each="commento : ${prodotto.commenti}">
+					<div>
+						<label for="descrizione">Descrizione</label><br>
+						<input type="text" th:field="*{descrizione}" id="descrizione" required>
+					</div>
+
+					<button class="coffe-button" type="submit">Salva</button>
+				</form>
+			</div>
+			<div th:if="${commentoUser.id != null}">
+				<div class="commento">
+					<div>
+						<p th:text="${commento.data}" class="nomePrezzo fw-semibold">
+							Data
+						</p>
+						<p th:text="${commento.user.nome}" class="nomePrezzo fw-semibold">
+							Nome
+						</p>
+						<p th:text="${commento.user.cognome}">
+							Cognome
+						</p>
+						<p th:text="${commento.descrizione}">
+							Descrizione
+						</p>
+					</div>
+					<button class="hair-button "><a th:href="@{/user/editCommento/{id}(id=${prodotto.id})}">Modifica</a></button>
+					<button class="hair-button "><a th:href="@{/user/deleteCommento/{id}(id=${prodotto.id})}">Cancella</a></button>
+				</div>
+			</div>
+			<!--
+			<form class="commento" th:object="${commento}" th:action="@{${commento.id} != null ? '/user/editCommento' : '/user/newCommento'}"
+				method="post">
+				<!- Campo nascosto per determinare se è una creazione, modifica o cancellazione ->
+				<input type="hidden" th:field="*{id}" />
+
+				<div>
+					<label for="descrizione">Descrizione</label><br>
+					<input type="text" class="text-start" name="descrizione" id="descrizione" th:field="*{descrizione}" required>
+				</div>
+
+				<!- Se il commento esiste, mostra un bottone per modificare o cancellare ->
+				<div th:if="${commento.id != null}">
+					<button class="coffe-button" type="submit">Modifica</button>
+					<button class="coffe-button" type="button"
+						th:onclick="|window.location.href='/user/deleteCommento/{id}'|">Cancella</button>
+				</div>
+
+				<!- Se il commento non esiste (nuovo), mostra il bottone "Salva" ->
+				<div th:if="${commento.id == null}">
+					<button class="coffe-button" type="submit">Salva</button>
+				</div>
+			</form>
+
+			-->
+
+			<div th:each="commento : ${commenti}">
 				<div class="commento">
 					<div>
 						<p th:text="${commento.data}" class="nomePrezzo fw-semibold">

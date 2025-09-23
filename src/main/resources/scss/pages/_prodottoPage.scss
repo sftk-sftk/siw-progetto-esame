@@ -2,4 +2,18 @@
 	.immagine {
 		width: 20rem;
 	}
+	
+	.commenti {
+			margin: 2rem 1rem;
+			padding: 1rem;
+			//background-color: $white-color;
+			//box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
+
+			.commento {
+				background-color: $shadow-color;
+				box-shadow: 0 0.2rem 0.2rem $top-coffe-color;
+				min-height: 5rem;
+				min-width: 30rem;
+			}
+		}
 }

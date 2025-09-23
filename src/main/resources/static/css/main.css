@@ -642,5 +642,15 @@ form input[type=checkbox]:focus {
 .prodottoPage .immagine {
   width: 20rem;
 }
+.prodottoPage .commenti {
+  margin: 2rem 1rem;
+  padding: 1rem;
+}
+.prodottoPage .commenti .commento {
+  background-color: #beb39e;
+  box-shadow: 0 0.2rem 0.2rem #cabb98;
+  min-height: 5rem;
+  min-width: 30rem;
+}
 
 /*# sourceMappingURL=main.css.map */

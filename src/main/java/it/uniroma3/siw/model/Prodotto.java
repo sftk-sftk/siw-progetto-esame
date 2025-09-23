@@ -50,6 +50,18 @@ public class Prodotto {
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Tipologia tipologia;
+	
+	// Gestione lista commenti
+	public void add(Commento commento) {
+		this.commenti.add(commento);
+		
+	}
+	
+	public void remove(Commento commento) {
+		this.commenti.remove(commento);
+		
+	}
+	
 
 	// GETTER E SETTER
 	public Long getId() {

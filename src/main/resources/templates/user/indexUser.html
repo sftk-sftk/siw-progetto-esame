@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Dashboard Amministratore')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<main class="index">
+		<section class="text-center">
+			<h1 class="title" th:text="'Ciao ' + ${user.nome} + '!' ">Ciao!</h1>
+			<p>Scopri il nostro catalogo di prodotti di alta qualita' per il tuo caffe ideale</p>
+			<div class="button">
+				<button class="hair-button "><a href="/catalogo">Visualizza Catalogo</a></button>
+			</div>
+		</section>
+
+		<!--		<div class="d-flex">-->
+		<div class="text-center align-items-center">
+			<section class="chicchiCaffe ms-3">
+
+				<div class="row g-5 justify-content-center">
+
+					<div class="col-auto">
+						<button
+							class="chiccoCaffe d-flex flex-column justify-content-center align-items-center text-center">
+							<div>
+								<p class="mt-auto mx-auto mb-0 text-center">
+									<a href="/user/userInfo">
+										Visualizza dati personali
+									</a>
+								</p>
+							</div>
+						</button>
+					</div>
+
+					<div class="col-auto">
+						<button
+							class="chiccoCaffe d-flex flex-column justify-content-center align-items-center text-center">
+							<div>
+								<p class="mt-auto mx-auto mb-0 text-center">
+									<a>
+										Visualizza i tuoi commenti
+									</a>
+								</p>
+							</div>
+						</button>
+					</div>
+				</div>
+
+			</section>
+		</div>
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+</body>
+
+</html>
