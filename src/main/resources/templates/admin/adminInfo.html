@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head :: common-head('Visualizza Dati')"></head>
+<head th:replace="fragments/head :: common-head('Visualizza Dati Personali')"></head>
 
 <body class="bg-coffe">
 	<!-- Navbar Section -->
@@ -19,7 +19,7 @@
 				<p th:text="'Cognome: ' + ${admin.cognome}">Cognome</p>
 				<p th:text="'Email: ' + ${admin.email}">Email</p>
 			</div>
-			
+
 			<div class="text-center align-items-center">
 				<section class="chicchiCaffe ms-5">
 					<div class="row g-5 justify-content-center">
@@ -28,7 +28,7 @@
 								class="piccoloChiccoCaffe d-flex flex-column justify-content-center align-items-center text-center">
 								<div>
 									<p class="mt-auto mx-auto mb-0 text-center">
-										<a href="/admin/adminInfo">
+										<a href="/admin/editAdmin">
 											Modifica
 										</a>
 									</p>
@@ -39,11 +39,11 @@
 							<div
 								class="piccoloChiccoCaffe d-flex flex-column justify-content-center align-items-center text-center">
 								<div>
-									<a>
-										<p class="mt-auto mx-auto mb-0 text-center">
+									<p class="mt-auto mx-auto mb-0 text-center">
+										<a href="/admin/changePassword">
 											Cambia Password
-										</p>
-									</a>
+										</a>
+									</p>
 								</div>
 							</div>
 						</div>

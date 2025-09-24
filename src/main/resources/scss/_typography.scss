@@ -41,7 +41,7 @@ a {
 	font-family: $font-title;
 }
 
-.nomePrezzoGrande{
+.nomePrezzoGrande {
 	font-family: $font-title;
 	font-size: 4rem;
 }
@@ -50,4 +50,8 @@ a {
 	//text-decoration: underline;
 	font-family: $font-logo;
 	color: $jewels-color;
+}
+
+.error {
+	color: $error-color;
 }

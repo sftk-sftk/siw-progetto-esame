@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Service;
@@ -88,5 +89,32 @@ public class CredentialsService {
 
 		return Optional.empty();
 	}
+
+	/* METODI PER LA MODIFICA DELLA PASSWORD DA PARTE DI UN UTENTE */
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
+        
+    	Credentials credentials = credentialsRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Utente non trovato"));
+
+        if (!passwordEncoder.matches(oldPassword, credentials.getPassword())) {
+        	logger.info("Vecchia password errata");
+            return false; // La password attuale è errata
+        }
+
+        // Validazione della nuova password (opzionale)
+        if (!isValidPassword(newPassword)) {
+            //throw new InvalidPasswordException("La nuova password non soddisfa il vincolo di almeno 8 caratteri");
+        }
+
+        // Aggiorna la password nel database
+        credentials.setPassword(passwordEncoder.encode(newPassword));
+        credentialsRepository.save(credentials);
+        return true;
+    }
+
+    private boolean isValidPassword(String password) {
+        // Aggiungi la logica di validazione per la nuova password (es. lunghezza, complessità)
+        return password.length() >= 8;
+    }
 
 }

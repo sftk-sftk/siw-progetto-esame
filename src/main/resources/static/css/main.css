@@ -50,6 +50,10 @@ a {
   color: #42c2ac;
 }
 
+.error {
+  color: red;
+}
+
 /*
 .btn {
   padding: 0.75rem 1.5rem;

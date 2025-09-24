@@ -8,13 +8,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Commento;
 import it.uniroma3.siw.model.Credentials;
@@ -25,6 +28,7 @@ import it.uniroma3.siw.service.CommentoService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ProdottoService;
 import it.uniroma3.siw.service.UserService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
@@ -187,5 +191,68 @@ public class UserController {
 		model.addAttribute("commenti", commenti);
 
 		return "admin/viewAllCommenti";
+	}
+	
+	@GetMapping("/editUser")
+	public String showEditUserForm(Model model, Authentication authentication) {
+		Credentials credentials = credentialsService.getAuthenticatedUserCredentials().orElse(null);
+
+		if (credentials != null && credentials.getRole().equals(Credentials.USER)) {
+			// admin is authenticated, show the dashboard
+			User user = credentials.getUser();
+			
+			model.addAttribute("newUser", user);
+			return "user/edit/editUser";
+		}
+
+		return "redirect:/login";
+	}
+	
+	@PostMapping("/editUser")
+	public String updateUser(@ModelAttribute("newUser") @Valid User newUser, BindingResult result, Model model,
+			Authentication authentication) {
+		if (result.hasErrors()) {
+			// Se ci sono errori di validazione, torna al form mostrando gli errori
+			return "user/edit/editUser";
+		}
+
+		Credentials credentials = credentialsService.getAuthenticatedUserCredentials().orElse(null);
+
+		if (credentials != null && credentials.getRole().equals(Credentials.USER)) {
+			// admin is authenticated, show the dashboard
+			User user = credentials.getUser();
+
+			user.setNome(newUser.getNome());
+			user.setCognome(newUser.getCognome());
+			user.setEmail(newUser.getEmail());
+
+			userService.save(user); // salva Host aggiornato
+
+			return "redirect:/user/userInfo";
+		}
+		return "redirect:/error";
+	}
+	
+	@GetMapping("/changePassword")
+	public String showChangePasswordForm(Model model) {
+		return "user/edit/changePassword";
+	}
+
+	@PostMapping("/changePassword")
+	public String changePassword(@RequestParam String oldPassword, @RequestParam String newPassword,
+			Authentication authentication) {
+
+		// Ottieni il nome utente dall'autenticazione
+		String username = authentication.getName();
+
+		// Verifica se la password è stata cambiata correttamente
+		if (credentialsService.changePassword(username, oldPassword, newPassword)) {
+			// return ResponseEntity.ok("Password modificata con successo");
+			return "user/edit/successChangePassword";
+		} else {
+			// return ResponseEntity.badRequest().body("La vecchia password non è
+			// corretta");
+			return "user/edit/failChangePassword";
+		}
 	}
 }

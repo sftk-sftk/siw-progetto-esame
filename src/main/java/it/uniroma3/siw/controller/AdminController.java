@@ -8,11 +8,13 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -174,7 +176,7 @@ public class AdminController {
 
 		prodottoService.save(prodotto);
 
-		return "redirect:/admin/indexAdmin";
+		return "redirect:/prodotto/" + prodotto.getId();
 	}
 	/*
 	 * @PostMapping("/editProdottiAffini/{id}")
@@ -294,10 +296,13 @@ public class AdminController {
 		if (prodotto == null) {
 			return "redirect:/admin/indexAdmin"; // prodotto non trovato
 		}
+		
+		List<Prodotto> prodotti = prodottoService.findAll();
+		prodotti.remove(prodotto);
 
 		model.addAttribute("prodotto", prodotto);
 		model.addAttribute("tipologie", tipologiaService.findAll());
-		model.addAttribute("prodotti", prodottoService.findAll());
+		model.addAttribute("prodotti", prodotti);
 
 		return "admin/edit/editProdotto"; // la view del form modifica prodotto
 	}
@@ -371,5 +376,69 @@ public class AdminController {
 		prodottoService.save(prodottoOriginale);
 
 		return "redirect:/prodotto/" + id; // Reindirizza alla pagina del prodotto
+	}
+	
+	// edit host: give form
+	@GetMapping("/editAdmin")
+	public String showEditAdminForm(Model model, Authentication authentication) {
+		Credentials credentials = credentialsService.getAuthenticatedUserCredentials().orElse(null);
+
+		if (credentials != null && credentials.getRole().equals(Credentials.ADMIN)) {
+			// admin is authenticated, show the dashboard
+			User admin = credentials.getUser();
+			
+			model.addAttribute("newAdmin", admin);
+			return "admin/edit/editAdmin";
+		}
+
+		return "redirect:/login";
+	}
+	
+	@PostMapping("/editAdmin")
+	public String updateAdmin(@ModelAttribute("newAdmin") @Valid User newAdmin, BindingResult result, Model model,
+			Authentication authentication) {
+		if (result.hasErrors()) {
+			// Se ci sono errori di validazione, torna al form mostrando gli errori
+			return "admin/edit/editAdmin";
+		}
+
+		Credentials credentials = credentialsService.getAuthenticatedUserCredentials().orElse(null);
+
+		if (credentials != null && credentials.getRole().equals(Credentials.ADMIN)) {
+			// admin is authenticated, show the dashboard
+			User admin = credentials.getUser();
+
+			admin.setNome(newAdmin.getNome());
+			admin.setCognome(newAdmin.getCognome());
+			admin.setEmail(newAdmin.getEmail());
+
+			userService.save(admin); // salva Host aggiornato
+
+			return "redirect:/admin/adminInfo";
+		}
+		return "redirect:/error";
+	}
+	
+	@GetMapping("/changePassword")
+	public String showChangePasswordForm(Model model) {
+		return "admin/edit/changePassword";
+	}
+
+	@PostMapping("/changePassword")
+	public String changePassword(@RequestParam String oldPassword, @RequestParam String newPassword,
+			Authentication authentication) {
+
+		// Ottieni il nome utente dall'autenticazione
+		String username = authentication.getName();
+
+		// Verifica se la password è stata cambiata correttamente
+		if (credentialsService.changePassword(username, oldPassword, newPassword)) {
+			// return ResponseEntity.ok("Password modificata con successo");
+			return "admin/edit/successChangePassword";
+		} else {
+			// return ResponseEntity.badRequest().body("La vecchia password non è
+			// corretta");
+			return "admin/edit/failChangePassword";
+		}
 	}
 }

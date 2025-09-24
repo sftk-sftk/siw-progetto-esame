@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Modifica Dati Personali')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+
+	<main class="index">
+		<section class="text-center">
+			<h1 class="title">Modifica dati personali</h1>
+		</section>
+
+		<!-- Visualizzazione errori di validazione -->
+		<div th:if="${#fields.hasErrors('newUser')}">
+			<p th:each="error : ${#fields.errors('newUser')}" th:text="${error}"></p>
+		</div>
+
+		<div class="form ms-5 mt-5">
+			<form th:action="@{/user/editUser}" th:object="${newUser}" method="post">
+
+				<div>
+					<label for="nome">Nome</label><br>
+					<input type="text" id="nome" th:field="*{nome}" placeholder="nome" required />
+					<p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+				</div>
+
+				<div>
+
+					<label for="cognome">Cognome</label><br>
+					<input type="text" id="cognome" th:field="*{cognome}" placeholder="Cognome" required />
+					<p th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}"></p>
+				</div>
+
+				<div>
+					<label for="email">Email</label><br>
+					<input type="email" id="email" th:field="*{email}" placeholder="Email" required />
+					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+				</div>
+
+				<button type="submit" class="coffe-button mt-5">Salva</button>
+			</form>
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+</body>
+
+</html>
