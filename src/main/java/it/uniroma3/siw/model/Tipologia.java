@@ -24,7 +24,7 @@ public class Tipologia {
 	@Column(nullable = false)
 	private String nome;
 
-	@OneToMany(mappedBy = "tipologia", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "tipologia", orphanRemoval = true)
 	private List<Prodotto> prodotti;
 
 	// GETTER E SETTER

@@ -66,5 +66,10 @@ public class ProdottoService {
 		return prodottoRepository.findTop3ByCommenti(pageable);
 	}
 
+	public void delete(Prodotto prodotto) {
+		prodottoRepository.delete(prodotto);
+		
+	}
+
 
 }

@@ -12,6 +12,10 @@
 
 		<div th:replace="fragments/prodottoDettagli :: dettagli-prodotto"></div>
 
+		<div class="text-center">
+		<button class="hair-button"><a th:href="@{/admin/editProdotto/{id}(id=${prodotto.id})}">Modifica</a></button>
+		<button class="hair-button ms-5"><a th:href="@{/admin/deleteProdotto/{id}(id=${prodotto.id})}">Cancella</a></button>
+		</div>
 		<section class="commenti">
 			<p>Commenti</p>
 
@@ -39,7 +43,7 @@
 			</div>
 		</section>
 	</main>
-	
+
 	<div th:replace="fragments/footerScripts :: footerScripts"></div>
 
 </body>

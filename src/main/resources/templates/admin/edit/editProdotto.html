@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common-head('Modifica Prodotto')"></head>
+
+<body class="bg-coffe">
+	<!-- Navbar Section -->
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<main class="index">
+		<section class="text-center">
+			<h1 class="title">Modifica prodotto</h1>
+		</section>
+
+		<div class="text-justify ms-5 mt-5">
+			<form th:action="@{/admin/editProdotto/{id}(id=${prodotto.id})}" method="post" enctype="multipart/form-data" th:object="${prodotto}"
+				class="p-3">
+
+				<div class="mb-3">
+					<label for="nome" class="form-label">Nome Prodotto</label><br>
+					<input type="text" th:field="*{nome}" class="form-control" id="nome" placeholder="Nome" required>
+				</div>
+
+				<div class="mb-3">
+					<label for="fileImmagine" class="form-label">Immagine prodotto</label><br>
+					<input type="file" name="fileImmagine" id="fileImmagine" class="file" accept="image/*">
+					<!-- Mostra immagine attuale se presente -->
+					<div th:if="${prodotto.immagine}">
+						<img th:src="@{'/images/prodotti/' + ${prodotto.immagine}}" alt="Immagine prodotto" style="max-width: 150px; margin-top: 10px;">
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<label for="prezzo" class="form-label">Prezzo</label><br>
+					<input type="number" th:field="*{prezzo}" step="0.01" class="form-control" id="prezzo"
+						placeholder="Prezzo" required>
+				</div>
+
+				<div class="mb-3">
+					<label for="descrizione" class="form-label">Descrizione</label><br>
+					<textarea th:field="*{descrizione}" class="form-control" id="descrizione" rows="3"
+						placeholder="Descrizione" required></textarea>
+				</div>
+
+				<!-- Tipologia: selezione o nuova -->
+				<div class="mb-3 mt-5">
+					<label class="form-label">Tipologia</label> <br>
+					<select id="tipologieSelect" name="tipologieSelect" class="select"
+						onchange="toggleNewTipologiaInput()" required>
+						<option value="" disabled th:selected="${prodotto.tipologia == null}">Seleziona una tipologia</option>
+						<option th:each="tipologia : ${tipologie}" 
+								th:value="${tipologia.nome}" 
+								th:text="${tipologia.nome}"
+								th:selected="${prodotto.tipologia != null} ? ${tipologia.nome.equals(prodotto.tipologia.nome)} : false">
+						</option>
+						<option value="__new__">-- Nuova tipologia --</option>
+					</select>
+				</div>
+
+				<div class="mb-3" id="newTipologiaDiv" style="display:none;"><br>
+					<label for="nomeTipologia" class="form-label">Nuova Tipologia</label>
+					<input type="text" name="nomeTipologia" id="nomeTipologia" class="form-control"
+						placeholder="Tipologia">
+				</div>
+
+				<!-- Prodotti affini: filtro e selezione multipla -->
+				<div class="mb-3 mt-5">
+					<label class="form-label">Seleziona Prodotti Affini</label><br>
+
+					<input type="text" id="filtroProdotti" class="form-control" placeholder="Filtra"
+						onkeyup="filterProdottiAffini()">
+				</div>
+
+				<div class="listaProdottiSimili mb-3">
+					<div id="prodottiList" class="row g-1">
+
+						<div th:each="p : ${prodotti}" class="col-12 col-md-4">
+							<div class="d-flex align-items-center text-decoration-none">
+								<input type="checkbox" name="prodottiSimili" th:value="${p.id}"
+									th:id="'prodotto_'+${p.id}"
+									th:checked="${prodotto.prodottiSimili.contains(p)}">
+								<label class="ms-3" th:for="'prodotto_'+${p.id}"
+									th:text="${p.nome + ' (' + p.tipologia.nome + ')'}"></label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<button type="submit" class="coffe-button mt-5">Salva</button>
+			</form>
+		</div>
+	</main>
+
+	<div th:replace="fragments/footerScripts :: footerScripts"></div>
+
+	<script>
+		// Mostra/nascondi input nuova tipologia
+		function toggleNewTipologiaInput() {
+			const select = document.getElementById('tipologieSelect');
+			const newTipologiaDiv = document.getElementById('newTipologiaDiv');
+			const newTipologiaInput = document.getElementById('nomeTipologia');
+
+			if (select.value === '__new__') {
+				newTipologiaDiv.style.display = 'block';
+				newTipologiaInput.required = true;
+			} else {
+				newTipologiaDiv.style.display = 'none';
+				newTipologiaInput.required = false;
+				newTipologiaInput.value = '';
+			}
+		}
+
+		// Filtra prodotti affini per nome o tipologia
+		function filterProdottiAffini() {
+			const filtro = document.getElementById('filtroProdotti').value.toLowerCase();
+			const prodottiDiv = document.getElementById('prodottiList');
+			const prodotti = prodottiDiv.querySelectorAll('div');
+
+			prodotti.forEach(div => {
+				const label = div.querySelector('label');
+				const text = label.textContent.toLowerCase();
+				if (text.includes(filtro)) {
+					div.style.display = 'block';
+				} else {
+					div.style.display = 'none';
+				}
+			});
+		}
+
+		// Inizializza il campo nuova tipologia se necessario (es. quando si ricarica con errori)
+		window.onload = function() {
+			toggleNewTipologiaInput();
+
+			// Se vuoi impostare visibilità dinamica in base a un valore lato server, potresti aggiungere logica qui
+		};
+	</script>
+
+</body>
+
+</html>

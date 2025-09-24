@@ -55,7 +55,7 @@ public class AdminController {
 
 	@Autowired
 	private TipologiaService tipologiaService;
-	
+
 	@Autowired
 	private CommentoService commentoService;
 
@@ -67,10 +67,10 @@ public class AdminController {
 			// admin is authenticated, show the dashboard
 			User admin = credentials.getUser();
 			List<Tipologia> tipologie = tipologiaService.findAll();
-			
+
 			model.addAttribute("admin", admin); // Add user to the model for display
 			model.addAttribute("tipologie", tipologie);
-			
+
 			return "admin/indexAdmin.html";
 		}
 
@@ -104,7 +104,6 @@ public class AdminController {
 		return "admin/new/newProdotto";
 	}
 
-	// Save the New Facility with enhanced checks and transactions
 	@PostMapping("/newProdotto")
 	@Transactional
 	public String saveProdotto(@ModelAttribute("prodotto") @Valid Prodotto prodotto, BindingResult result,
@@ -129,36 +128,36 @@ public class AdminController {
 
 		Tipologia tipologia = null;
 		logger.info("Nome: '{}' Tipologia", tipologia);
-		
+
 		if (tipologiaSelezionata.equals("__new__")) {
-			
+
 			if (nomeTipologia == null || nomeTipologia.trim().isEmpty()) {
-				
+
 				logger.info("Nome 1: '{}' Tipologia", tipologia);
-				
+
 				result.rejectValue("tipologia", "NotBlank", "Inserisci il nome della nuova tipologia");
 				model.addAttribute("tipologie", tipologiaService.findAll());
 				model.addAttribute("prodotti", prodottoService.findAll());
 				return "admin/new/newProdotto";
 			}
 			tipologia = tipologiaService.findByNome(nomeTipologia.trim());
-			
+
 			if (tipologia == null) {
 				tipologia = new Tipologia();
 				tipologia.setNome(nomeTipologia.trim());
 			}
-			
+
 			logger.info("Nome 2: '{}' Tipologia", tipologia);
-			
+
 		} else {
-			
+
 			logger.info("Nome 3: '{}' Tipologia", tipologia);
-			
+
 			tipologia = tipologiaService.findByNome(tipologiaSelezionata);
 		}
-		
+
 		logger.info("Nome 4: '{}' Tipologia", tipologia);
-		
+
 		prodotto.setTipologia(tipologia);
 		logger.info("Nome 5: '{}' Tipologia", tipologia);
 		tipologia.add(prodotto);
@@ -172,69 +171,67 @@ public class AdminController {
 		logger.info("Nome 7: '{}' Tipologia", tipologia);
 		tipologiaService.save(tipologia);
 		logger.info("Nome 8: '{}' Tipologia", tipologia);
-		
-		//prodottoService.save(prodotto);
+
+		prodottoService.save(prodotto);
 
 		return "redirect:/admin/indexAdmin";
 	}
 	/*
-	@PostMapping("/editProdottiAffini/{id}")
-	@Transactional
-	public String listProdottiSimili(@PathVariable("id") Long id, @RequestParam(value = "prodottiSimili", required = false) List<Long> prodottiSimiliIds, BindingResult result, Model model) throws IOException {
-		if (result.hasErrors()) {
-			model.addAttribute("tipologie", tipologiaService.findAll());
-			model.addAttribute("prodotti", prodottoService.findAll());
-			return "admin/new/newProdotto";
-		}
+	 * @PostMapping("/editProdottiAffini/{id}")
+	 * 
+	 * @Transactional public String listProdottiSimili(@PathVariable("id") Long
+	 * id, @RequestParam(value = "prodottiSimili", required = false) List<Long>
+	 * prodottiSimiliIds, BindingResult result, Model model) throws IOException { if
+	 * (result.hasErrors()) { model.addAttribute("tipologie",
+	 * tipologiaService.findAll()); model.addAttribute("prodotti",
+	 * prodottoService.findAll()); return "admin/new/newProdotto"; }
+	 * 
+	 * // Gestione prodotti affini if (prodottiSimiliIds != null &&
+	 * !prodottiSimiliIds.isEmpty()) { List<Prodotto> prodottiSimili =
+	 * prodottoService.findAllById(prodottiSimiliIds);
+	 * prodotto.setProdottiSimili(prodottiSimili); }
+	 * logger.info("Nome 1: '{}' Tipologia", tipologia);
+	 * 
+	 * prodottoService.save(prodotto);
+	 * 
+	 * return "redirect:/admin/indexAdmin"; }
+	 * 
+	 * @PostMapping("/editProdottiAffini/{id}")
+	 * 
+	 * @Transactional public String saveProdottiSimili(@PathVariable("id") Long
+	 * id, @RequestParam(value = "prodottiSimili", required = false) List<Long>
+	 * prodottiSimiliIds, BindingResult result, Model model) throws IOException { if
+	 * (result.hasErrors()) { model.addAttribute("tipologie",
+	 * tipologiaService.findAll()); model.addAttribute("prodotti",
+	 * prodottoService.findAll()); return "admin/new/newProdotto"; }
+	 * 
+	 * // Gestione prodotti affini if (prodottiSimiliIds != null &&
+	 * !prodottiSimiliIds.isEmpty()) { List<Prodotto> prodottiSimili =
+	 * prodottoService.findAllById(prodottiSimiliIds);
+	 * prodotto.setProdottiSimili(prodottiSimili); }
+	 * logger.info("Nome 1: '{}' Tipologia", tipologia);
+	 * 
+	 * prodottoService.save(prodotto);
+	 * 
+	 * return "redirect:/admin/indexAdmin"; }
+	 */
 
-		// Gestione prodotti affini
-		if (prodottiSimiliIds != null && !prodottiSimiliIds.isEmpty()) {
-			List<Prodotto> prodottiSimili = prodottoService.findAllById(prodottiSimiliIds);
-			prodotto.setProdottiSimili(prodottiSimili);
-		}
-		logger.info("Nome 1: '{}' Tipologia", tipologia);
-		
-		prodottoService.save(prodotto);
-
-		return "redirect:/admin/indexAdmin";
-	}
-	
-	@PostMapping("/editProdottiAffini/{id}")
-	@Transactional
-	public String saveProdottiSimili(@PathVariable("id") Long id, @RequestParam(value = "prodottiSimili", required = false) List<Long> prodottiSimiliIds, BindingResult result, Model model) throws IOException {
-		if (result.hasErrors()) {
-			model.addAttribute("tipologie", tipologiaService.findAll());
-			model.addAttribute("prodotti", prodottoService.findAll());
-			return "admin/new/newProdotto";
-		}
-
-		// Gestione prodotti affini
-		if (prodottiSimiliIds != null && !prodottiSimiliIds.isEmpty()) {
-			List<Prodotto> prodottiSimili = prodottoService.findAllById(prodottiSimiliIds);
-			prodotto.setProdottiSimili(prodottiSimili);
-		}
-		logger.info("Nome 1: '{}' Tipologia", tipologia);
-		
-		prodottoService.save(prodotto);
-
-		return "redirect:/admin/indexAdmin";
-	}*/
-	
 	@GetMapping("/deleteCommento/{id}")
 	public String deleteCommento(@PathVariable Long id, HttpServletRequest request) {
 		/*
-		Credentials credentials = credentialsService.getAuthenticatedUserCredentials().orElse(null);
-		User user = credentials.getUser();
-
-		Prodotto prodotto = prodottoService.findById(id);
-
-		Commento commento = commentoService.findByProdottoAndUser(prodotto, user);
-*/
+		 * Credentials credentials =
+		 * credentialsService.getAuthenticatedUserCredentials().orElse(null); User user
+		 * = credentials.getUser();
+		 * 
+		 * Prodotto prodotto = prodottoService.findById(id);
+		 * 
+		 * Commento commento = commentoService.findByProdottoAndUser(prodotto, user);
+		 */
 		Commento commento = commentoService.findById(id);
-		
+
 		Prodotto prodotto = commento.getProdotto();
 		User user = commento.getUser();
-		
+
 		user.remove(commento);
 		userService.save(user);
 
@@ -243,7 +240,7 @@ public class AdminController {
 
 		// Elimina il commento
 		commentoService.delete(commento);
-		
+
 		// Recupera l'URL della pagina precedente
 		String referer = request.getHeader("Referer");
 
@@ -254,20 +251,125 @@ public class AdminController {
 
 		return "redirect:/prodotto/" + id; // Reindirizza alla pagina del prodotto
 	}
-	
+
 	@GetMapping("/viewAllCommenti")
 	public String viewAllCommenti(@RequestParam(required = false) String nomeProdotto,
 			@RequestParam(required = false) String parola, @RequestParam(required = false) LocalDate data,
 			Model model) {
 
 		List<Commento> commenti = commentoService.filtraCommenti(nomeProdotto, parola, data);
-		
+
 		model.addAttribute("commenti", commenti);
-		
-	    model.addAttribute("nomeProdotto", nomeProdotto);
-	    model.addAttribute("parola", parola);
-	    model.addAttribute("data", data);
+
+		model.addAttribute("nomeProdotto", nomeProdotto);
+		model.addAttribute("parola", parola);
+		model.addAttribute("data", data);
 
 		return "admin/viewAllCommenti";
+	}
+
+	@GetMapping("/deleteProdotto/{id}")
+	public String deleteProdotto(@PathVariable Long id) {
+
+		Prodotto prodotto = prodottoService.findById(id);
+
+		// Rimuovi questo prodotto da tutti i prodotti che lo hanno in prodottiSimili
+		List<Prodotto> tuttiProdotti = prodottoService.findAll();
+		for (Prodotto p : tuttiProdotti) {
+			if (p.getProdottiSimili().contains(prodotto)) {
+				p.getProdottiSimili().remove(prodotto);
+				prodottoService.save(p);
+			}
+		}
+
+		// Elimina il commento
+		prodottoService.delete(prodotto);
+
+		return "redirect:/catalogo"; // Reindirizza alla pagina del prodotto
+	}
+
+	@GetMapping("/editProdotto/{id}")
+	public String editProdottoForm(@PathVariable Long id, Model model) {
+		Prodotto prodotto = prodottoService.findById(id);
+		if (prodotto == null) {
+			return "redirect:/admin/indexAdmin"; // prodotto non trovato
+		}
+
+		model.addAttribute("prodotto", prodotto);
+		model.addAttribute("tipologie", tipologiaService.findAll());
+		model.addAttribute("prodotti", prodottoService.findAll());
+
+		return "admin/edit/editProdotto"; // la view del form modifica prodotto
+	}
+
+	@PostMapping("/editProdotto/{id}")
+	@Transactional
+	public String updateProdotto(@PathVariable Long id, @ModelAttribute("prodotto") @Valid Prodotto prodottoModificato,
+			BindingResult result,
+			@RequestParam(value = "tipologieSelect", required = false) String tipologiaSelezionata,
+			@RequestParam(value = "nomeTipologia", required = false) String nomeTipologia,
+			@RequestParam(value = "prodottiSimili", required = false) List<Long> prodottiSimiliIds,
+			@RequestParam("fileImmagine") MultipartFile fileImmagine, Model model) throws IOException {
+
+		if (result.hasErrors()) {
+			model.addAttribute("tipologie", tipologiaService.findAll());
+			model.addAttribute("prodotti", prodottoService.findAll());
+			return "admin/edit/editProdotto";
+		}
+
+		// Carica il prodotto originale dal DB
+		Prodotto prodottoOriginale = prodottoService.findById(id);
+		if (prodottoOriginale == null) {
+			return "redirect:/admin/indexAdmin"; // prodotto non trovato
+		}
+
+		// Aggiorna i campi semplici
+		prodottoOriginale.setNome(prodottoModificato.getNome());
+		prodottoOriginale.setPrezzo(prodottoModificato.getPrezzo());
+		prodottoOriginale.setDescrizione(prodottoModificato.getDescrizione());
+
+		// Gestione immagine
+		if (!fileImmagine.isEmpty()) {
+			String nomeFile = UUID.randomUUID() + "_" + fileImmagine.getOriginalFilename();
+			Path percorso = Paths.get("src/main/resources/static/images/prodotti", nomeFile);
+			Files.createDirectories(percorso.getParent());
+			Files.write(percorso, fileImmagine.getBytes());
+			prodottoOriginale.setImmagine(nomeFile);
+		}
+
+		// Gestione tipologia
+		Tipologia tipologia = null;
+
+		if ("__new__".equals(tipologiaSelezionata)) {
+			if (nomeTipologia == null || nomeTipologia.trim().isEmpty()) {
+				result.rejectValue("tipologia", "NotBlank", "Inserisci il nome della nuova tipologia");
+				model.addAttribute("tipologie", tipologiaService.findAll());
+				model.addAttribute("prodotti", prodottoService.findAll());
+				return "admin/edit/editProdotto";
+			}
+			tipologia = tipologiaService.findByNome(nomeTipologia.trim());
+			if (tipologia == null) {
+				tipologia = new Tipologia();
+				tipologia.setNome(nomeTipologia.trim());
+			}
+		} else {
+			tipologia = tipologiaService.findByNome(tipologiaSelezionata);
+		}
+
+		prodottoOriginale.setTipologia(tipologia);
+		tipologia.add(prodottoOriginale);
+
+		// Gestione prodotti simili: aggiorna la lista
+		if (prodottiSimiliIds != null && !prodottiSimiliIds.isEmpty()) {
+			List<Prodotto> prodottiSimili = prodottoService.findAllById(prodottiSimiliIds);
+			prodottoOriginale.setProdottiSimili(prodottiSimili);
+		} else {
+			prodottoOriginale.getProdottiSimili().clear();
+		}
+
+		tipologiaService.save(tipologia);
+		prodottoService.save(prodottoOriginale);
+
+		return "redirect:/prodotto/" + id; // Reindirizza alla pagina del prodotto
 	}
 }
