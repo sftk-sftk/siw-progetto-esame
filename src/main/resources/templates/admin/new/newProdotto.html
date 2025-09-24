@@ -14,8 +14,8 @@
 		</section>
 
 		<div class="text-justify ms-5 mt-5">
-			<form th:action="@{/admin/newProdotto}" method="post" enctype="multipart/form-data" th:object="${prodotto}"
-				class="p-3">
+			<form id="formNuovoProdotto" th:action="@{/admin/newProdotto}" method="post" enctype="multipart/form-data"
+				th:object="${prodotto}" class="p-3">
 
 				<div class="mb-3">
 					<label for="nome" class="form-label">Nome Prodotto</label><br>
@@ -52,7 +52,7 @@
 				</div>
 
 				<div class="mb-3" id="newTipologiaDiv" style="display:none;"><br>
-					<label for="nomeTipologia" class="form-label">Nuova Tipologia</label>
+					<label id="nomeTipologia" for="nomeTipologia" class="form-label">Nuova Tipologia</label>
 					<input type="text" name="nomeTipologia" id="nomeTipologia" class="form-control"
 						placeholder="Tipologia">
 				</div>
@@ -87,40 +87,7 @@
 
 	<div th:replace="fragments/footerScripts :: footerScripts"></div>
 
-	<script>
-		// Mostra/nascondi input nuova tipologia
-		function toggleNewTipologiaInput() {
-			const select = document.getElementById('tipologieSelect');
-			const newTipologiaDiv = document.getElementById('newTipologiaDiv');
-			const newTipologiaInput = document.getElementById('nomeTipologia');
-
-			if (select.value === '__new__') {
-				newTipologiaDiv.style.display = 'block';
-				newTipologiaInput.required = true;
-			} else {
-				newTipologiaDiv.style.display = 'none';
-				newTipologiaInput.required = false;
-				newTipologiaInput.value = '';
-			}
-		}
-
-		// Filtra prodotti affini per nome o tipologia
-		function filterProdottiAffini() {
-			const filtro = document.getElementById('filtroProdotti').value.toLowerCase();
-			const prodottiDiv = document.getElementById('prodottiList');
-			const prodotti = prodottiDiv.querySelectorAll('div');
-
-			prodotti.forEach(div => {
-				const label = div.querySelector('label');
-				const text = label.textContent.toLowerCase();
-				if (text.includes(filtro)) {
-					div.style.display = 'block';
-				} else {
-					div.style.display = 'none';
-				}
-			});
-		}
-	</script>
+	<script src="/js/newProdotto.js"></script>
 
 </body>
 
