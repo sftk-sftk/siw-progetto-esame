@@ -14,7 +14,7 @@
 
 		<div class="text-center">
 		<button class="hair-button"><a th:href="@{/admin/editProdotto/{id}(id=${prodotto.id})}">Modifica</a></button>
-		<button class="hair-button ms-5"><a th:href="@{/admin/deleteProdotto/{id}(id=${prodotto.id})}">Cancella</a></button>
+		<button class="hair-button ms-5"><a th:href="@{/admin/deleteProdotto/{id}(id=${prodotto.id})}" onclick="return confirm('Sei sicuro di voler eliminare questo prodotto?');">Cancella</a></button>
 		</div>
 		<section class="commenti">
 			<p>Commenti</p>
